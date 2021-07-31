@@ -1,4 +1,4 @@
-export default MONSTERS = [
+const MONSTERS = [
     {
         "id": 0,
         "name": "Black Knight",
@@ -6826,3 +6826,9 @@ export default MONSTERS = [
         "slayerXP": 165
     }
 ];
+
+const MONSTERS_BY_NAME = {};
+for(const monster of MONSTERS)
+    MONSTERS_BY_NAME[monster.name] = monster;
+
+export default MONSTERS_BY_NAME;

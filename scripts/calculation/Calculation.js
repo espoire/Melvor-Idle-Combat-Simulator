@@ -1,5 +1,7 @@
 import { average } from "../util/Array.js";
+import { appendLineBreak, removeChildren } from "../util/Element.js";
 import { randInt } from "../util/Random.js";
+import { camelCaseToTitleCase } from "../util/String.js";
 
 const SIMS = 100000;
 
@@ -79,3 +81,82 @@ function initialize(calculations) {
 initialize(calculations);
 
 export default calculations;
+
+/**
+ * @param {!HTMLElement} el 
+ */
+export function renderCalculationsTo(el) {
+    removeChildren(el);
+    const values = getFormValues();
+
+    for(const key in calculations) {
+        const calculation = calculations[key];
+        const value = calculation.calculate(values);
+        
+        values[key] = value;
+
+        if(!calculation.hide)
+            appendOutputRow(el, key, value);
+    }
+}
+
+function getFormValues() {
+    const ret = {};
+
+    const inputs = document.getElementsByTagName('input');
+    for(const input of inputs) {
+        let value = input.value; // Always a `string` type by default.
+
+        if(input.type == 'number') {
+            value = Number(value);
+        }
+
+        ret[input.id] = value;
+    }
+
+    return ret;
+}
+
+/**
+ * @param {!HTMLElement} el 
+ * @param {string} key 
+ * @param {any} value 
+ */
+function appendOutputRow(el, key, value) {
+    const rowElement = document.createElement('div');
+    rowElement.className = 'row';
+
+    appendOutputRowLabel(rowElement, key);
+    appendOutputRowValue(rowElement, value);
+    appendLineBreak(rowElement);    
+
+    el.appendChild(rowElement);
+}
+
+/**
+ * @param {!HTMLElement} el 
+ * @param {string} key 
+ */
+function appendOutputRowLabel(rowEl, key) {
+    const labelElement = document.createElement('label');
+
+    labelElement.innerHTML = camelCaseToTitleCase(key);
+
+    rowEl.appendChild(labelElement);
+}
+
+/**
+ * @param {!HTMLElement} rowEl 
+ * @param {any} value 
+ */
+function appendOutputRowValue(rowEl, value) {
+    const valueElement = document.createElement('span');
+    valueElement.className = 'value';
+    
+    let text = value;
+    if(typeof value == 'number')
+        text = value.toFixed(1);
+    valueElement.innerHTML = text;
+
+    rowEl.appendChild(valueElement);
+}
