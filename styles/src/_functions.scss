@@ -1,0 +1,14 @@
+@use 'vars';
+@use "sass:color";
+
+@function textify-color($color) {
+    @return color.mix($color, vars.$color-black, 60%);
+}
+
+@function backgroundify-color($color) {
+    @if vars.$theme == "dark" {
+        @return vars.$color-panel;
+    }
+    
+    @return color.mix($color, vars.$color-light, 50%);
+}

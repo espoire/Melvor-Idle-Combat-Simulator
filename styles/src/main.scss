@@ -1,0 +1,106 @@
+@use 'vars';
+@use 'functions';
+
+@if vars.$theme == "lazy dark" {
+    :root { 
+        background-color: #fefefe;
+        filter: invert(100%);
+    }
+
+    * { 
+        background-color: inherit;
+    }
+
+    img:not([src*=".svg"]), video {  
+        filter: invert(100%);
+    }
+}
+
+@mixin message-bubble($color) {
+    @extend %rounded-border;
+
+    @if not vars.$borderless-theme {
+        border: {
+            width: 2px;
+            color: $color;
+        }
+    }
+
+    background-color: functions.backgroundify-color($color);
+    color: functions.textify-color($color);
+
+    display: inline-block;
+}
+
+.error-bubble {
+    @include message-bubble(vars.$color-danger);
+}
+
+.warn-bubble {
+    @include message-bubble(vars.$color-warning);
+}
+
+.info-bubble {
+    @include message-bubble(vars.$color-info);
+}
+
+%rounded-border {
+    @if not vars.$borderless-theme {
+        border-style: solid;
+    }
+    border-radius: vars.$rounded-border-size;
+    padding: vars.$rounded-border-size;
+}
+
+body {
+    margin: 0;
+    color: vars.$color-dark;
+    background-color: vars.$color-light;
+}
+
+label.section {
+    font-weight: bold;
+
+    ::after {
+        content: none;
+    }
+}
+
+#input {
+    white-space: pre-line;
+
+    #player, #enemy {
+        margin-left: 20px;
+    }
+}
+
+#output {
+    white-space: pre-line;
+    padding-top: 1em;
+
+    #calculations {
+        margin-left: 20px;
+        
+        .row {
+            display: table-row;
+            
+            * {
+                display: table-cell;
+            }
+            
+            label {
+                text-align: right;
+                padding-right: 1em;
+                
+                ::after {
+                    content: ":"
+                }
+            }
+            
+            .value {
+                font-size: larger;
+                font-weight: bold;
+            }
+        }
+    }
+}

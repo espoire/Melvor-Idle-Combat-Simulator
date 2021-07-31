@@ -1,0 +1,69 @@
+.error-bubble {
+  background-color: #121212;
+  color: #c7a9ac;
+  display: inline-block;
+}
+
+.warn-bubble {
+  background-color: #121212;
+  color: #dac78f;
+  display: inline-block;
+}
+
+.info-bubble {
+  background-color: #121212;
+  color: #93b0b5;
+  display: inline-block;
+}
+
+.error-bubble, .warn-bubble, .info-bubble {
+  border-radius: 16px;
+  padding: 16px;
+}
+
+body {
+  margin: 0;
+  color: #cbc5bf;
+  background-color: #070605;
+}
+
+label.section {
+  font-weight: bold;
+}
+label.section ::after {
+  content: none;
+}
+
+#input {
+  white-space: pre-line;
+}
+#input #player, #input #enemy {
+  margin-left: 20px;
+}
+
+#output {
+  white-space: pre-line;
+  padding-top: 1em;
+}
+#output #calculations {
+  margin-left: 20px;
+}
+#output #calculations .row {
+  display: table-row;
+}
+#output #calculations .row * {
+  display: table-cell;
+}
+#output #calculations .row label {
+  text-align: right;
+  padding-right: 1em;
+}
+#output #calculations .row label ::after {
+  content: ":";
+}
+#output #calculations .row .value {
+  font-size: larger;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=main.css.map */

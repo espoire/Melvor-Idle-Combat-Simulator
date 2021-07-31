@@ -1,0 +1,43 @@
+@use "sass:color";
+
+$theme: "dark";
+
+$color-primary:   #00c3ff;
+$color-secondary: #00ff2a;
+
+$color-success:   #28a745;
+$color-danger:    #dc3545;
+$color-warning:   #ffc107;
+$color-info:      #17a2b8;
+
+$color-light:     #f8f9fa;
+$color-dark:      #343a40;
+$color-muted:     #6c757d;
+$color-white:     #fff;
+$color-black:     #000;
+
+$borderless-theme: false;
+$color-panel: null;
+
+
+
+@if $theme == "dark" {
+    $color-primary:   color.adjust($color-primary,   $saturation: -50%);
+    $color-secondary: color.adjust($color-secondary, $saturation: -50%);
+
+    $color-success: color.adjust($color-success, $saturation: -50%);
+    $color-danger:  color.adjust($color-danger,  $saturation: -50%);
+    $color-warning: color.adjust($color-warning, $saturation: -50%);
+    $color-info:    color.adjust($color-info,    $saturation: -50%);
+
+    $color-light: color.invert($color-light);
+    $color-dark:  color.invert($color-dark);
+    $color-muted: color.invert($color-muted);
+    $color-white: color.invert($color-white);
+    $color-black: color.invert($color-black);
+
+    $borderless-theme: true;
+    $color-panel: #121212;
+}
+
+$rounded-border-size: 16px;

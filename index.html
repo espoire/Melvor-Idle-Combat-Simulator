@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Melvor Combat Simulator</title>
+
+		<link rel="stylesheet" href="styles/bin/main.css" />
+		<script type="module" src="Main.js"></script>
+	</head>
+
+	<body>
+		<div id="input">
+			<label class="section">🙂 Player</label>
+			<div id="player">
+				<label>Min Damage</label>
+				<input type="number" id="playerMinDamage" value="0" />
+				<label>Max Damage</label>
+				<input type="number" id="playerMaxDamage" value="221" />
+				<label>Hit Chance</label>
+				<input type="number" id="playerHitChance" value="95" /><b>%</b>
+				<label>Attack Speed</label>
+				<input type="number" id="playerAttackSpeed" value="2.6" />
+			</div>
+			
+			<label class="section">😈 Enemy</label>
+			<div id="enemy">
+				<label>Max HP</label>
+				<input type="number" id="enemyMaxHp" value="600" />
+			</div>
+		</div>
+			
+		<button onclick="run();">Run</button>
+
+		<div id="output" style="display: none;">
+			<label class="section">🖥 Calculations</label>
+			<div id="calculations"></div>
+		</div>
+	</body>
+</html>
