@@ -8,44 +8,52 @@ const calculations = {
         return (values.playerMinDamage + values.playerMaxDamage) / 2;
     },
 
-    naiveHitsToKill(values) {
-        return values.enemyMaxHp / values.playerAverageDamagePerHit;
-    },
+    // naiveHitsToKill(values) {
+    //     return values.enemyMaxHp / values.playerAverageDamagePerHit;
+    // },
 
-    simulatedAverageHitsToKill(values) {
-        const simResults = [];
+    simulatedAverageHitsToKill: {
+        hide: true,
 
-        for(let i = 0; i < SIMS; i++) {
-            let hits = 0;
+        calculate(values) {
+            const simResults = [];
 
-            let enemyHp = values.enemyMaxHp;
-            while(enemyHp > 0) {
-                let hit = randInt(values.playerMinDamage, values.playerMaxDamage);
-                enemyHp -= hit;
-                hits++;
+            for(let i = 0; i < SIMS; i++) {
+                let hits = 0;
+
+                let enemyHp = values.enemyMaxHp;
+                while(enemyHp > 0) {
+                    let hit = randInt(values.playerMinDamage, values.playerMaxDamage);
+                    enemyHp -= hit;
+                    hits++;
+                }
+
+                simResults.push(hits);
             }
 
-            simResults.push(hits);
-        }
-
-        return average(simResults);
+            return average(simResults);
+        },
     },
 
     simulatedAverageAttacksToKill(values) {
         return values.simulatedAverageHitsToKill / (values.playerHitChance / 100);
     },
 
-    averageTimeToKill(values) {
-        return values.simulatedAverageAttacksToKill * values.playerAttackSpeed;
+    averageTimeToKill: {
+        hide: true,
+
+        calculate(values) {
+            return values.simulatedAverageAttacksToKill * values.playerAttackSpeed;
+        },
     },
 
     averageTimeToKillAndRespawn(values) {
         return values.averageTimeToKill + 3.0;
     },
 
-    killHz(values) {
-        return 1 / values.averageTimeToKillAndRespawn;
-    },
+    // killHz(values) {
+    //     return 1 / values.averageTimeToKillAndRespawn;
+    // },
 
     killsPerMinute(values) {
         return 60 / values.averageTimeToKillAndRespawn;
