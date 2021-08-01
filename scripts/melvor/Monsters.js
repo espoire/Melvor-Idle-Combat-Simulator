@@ -1,4 +1,6 @@
-const MONSTERS = [
+import SPELLS from "./Spells.js";
+
+let MONSTERS = [
     {
         "id": 0,
         "name": "Black Knight",
@@ -6826,6 +6828,83 @@ const MONSTERS = [
         "slayerXP": 165
     }
 ];
+
+class Monster {
+    static STYLE_NAMES = [
+        'melee',
+        'ranged',
+        'magic'
+    ];
+
+    constructor(config) {
+        this.name = config.name;
+        this.combatLevel = Monster.getCombatLevel(config);
+        this.hp = config.hitpoints * 10;
+
+        this.style = Monster.STYLE_NAMES[config.attackType];
+        this.speed = config.attackSpeed / 1000;
+        this.maxHit = Monster._getMaxHit(config);
+
+        this.ratings = {
+            melee: {
+                accuracy: (config.attackLevel + 8) * (config.attackBonus + 64),
+                evasion: (config.defenceLevel + 8) * (config.defenceBonus + 64),
+            },
+            ranged: {
+                accuracy: (config.rangedLevel + 8) * (config.attackBonus + 64),
+                evasion: (config.defenceLevel + 9) * (config.defenceBonusRanged + 64),
+            },
+            magic: {
+                accuracy: (config.magicLevel + 8) * (config.attackBonus + 64),
+                evasion: (config.magicLevel * 0.7 + config.defenceLevel * 0.3 + 9) * (config.defenceBonusMagic + 64),
+            },
+        };
+    }
+
+    static getCombatLevel(config) {
+        const meleeCombatLevel = 13 / 40 * (config.attackLevel + config.strengthLevel);
+        const rangedCombatLevel = 39 / 80 * config.rangedLevel;
+        const magicCombatLevel = 39 / 80 * config.magicLevel;
+        
+        const baseCombatLevel = (config.defenceLevel + config.hitpoints) / 4;
+        const roleCombatLevel = Math.max(meleeCombatLevel, rangedCombatLevel, magicCombatLevel);
+
+        return Math.floor(baseCombatLevel + roleCombatLevel);
+    }
+
+    static _getMaxHit(config) {
+        switch(config.attackType) {
+            case 0: // melee
+                const strength = config.strengthLevel + 9;
+                return 22 + config.strengthLevel +
+                    (17 + config.strengthLevel) * config.strengthBonus / 64;
+
+            case 1: // ranged
+                return 14 + config.rangedLevel +
+                    (config.rangedLevel + 9) * config.strengthBonusRanged / 64;
+
+            case 2: // magic
+                let spellBaseDamage;
+                if(config.selectedSpell) {
+                    spellBaseDamage = SPELLS[config.selectedSpell].maxHit;
+                } else {
+                    spellBaseDamage = config.setMaxHit;
+                }
+                return spellBaseDamage * (1 + config.damageBonusMagic / 100);
+
+            default:
+                const error = new Error(`Unknown attackType: ${config.attackType}`);
+                console.error(config);
+                throw error;
+        }
+    }
+}
+
+MONSTERS = MONSTERS.map(config =>
+    new Monster(config)
+).sort((a, b) =>
+    a.combatLevel - b.combatLevel
+);
 
 const MONSTERS_BY_NAME = {};
 for(const monster of MONSTERS)

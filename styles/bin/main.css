@@ -37,7 +37,7 @@ label.section ::after {
 #input {
   white-space: pre-line;
 }
-#input #player, #input #enemy {
+#input #player, #input #monster {
   margin-left: 20px;
 }
 

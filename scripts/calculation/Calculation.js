@@ -11,7 +11,7 @@ const calculations = {
     },
 
     // naiveHitsToKill(values) {
-    //     return values.enemyMaxHp / values.playerAverageDamagePerHit;
+    //     return values.monsterMaxHp / values.playerAverageDamagePerHit;
     // },
 
     simulatedAverageHitsToKill: {
@@ -23,10 +23,10 @@ const calculations = {
             for(let i = 0; i < SIMS; i++) {
                 let hits = 0;
 
-                let enemyHp = values.enemyMaxHp;
-                while(enemyHp > 0) {
+                let monsterHp = values.monsterMaxHp;
+                while(monsterHp > 0) {
                     let hit = randInt(values.playerMinDamage, values.playerMaxDamage);
-                    enemyHp -= hit;
+                    monsterHp -= hit;
                     hits++;
                 }
 
