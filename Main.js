@@ -1,5 +1,5 @@
 import { renderCalculationsTo, renderFindMonsterTo } from "./scripts/calculation/Calculation.js";
-import appendMonsterOptions, { onMonsterOptionSelected } from "./scripts/ui/Monster.js";
+import appendMonsterOptions, { appendMonsterInputs, onMonsterOptionSelected } from "./scripts/ui/Monster.js";
 import { appendPlayerInputs } from "./scripts/ui/Player.js";
 
 window.onCalculateButtonClick = function () {
@@ -16,7 +16,8 @@ window.onMonsterSelected = onMonsterOptionSelected;
 (function onAfterLoad() {
     console.log("After load");
 
-    appendMonsterOptions(document.getElementById('monster-select'));
     appendPlayerInputs(document.getElementById('player'));
+    appendMonsterOptions(document.getElementById('monster-select'));
+    appendMonsterInputs(document.getElementById('monster-inputs'));
 })();
 

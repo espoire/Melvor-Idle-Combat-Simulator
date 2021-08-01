@@ -8,7 +8,7 @@ const INPUTS = {
     },
 
     maxDamage: {
-        value: 290,
+        value: 274,
         min: 1,
     },
 
@@ -21,15 +21,15 @@ const INPUTS = {
     style: {
         type: 'optionset',
         options: [
-            'melee',
-            'ranged',
-            'magic',
+            { value: 'melee', display: '⚔' },
+            { value: 'ranged', display: '🏹' },
+            { value: 'magic', display: '🧙‍♂️' },
         ],
-        value: 'ranged'
+        value: 'ranged',
     },
 
     accuracy: {
-        value: 16650,
+        value: 17325,
         min: 1,
     },
 };
@@ -51,12 +51,16 @@ export function appendPlayerInputs(el) {
  * @param {object} config 
  */
 function appendPlayerInput(el, config) {
+    appendInput(el, 'player', config);
+}
+
+export function appendInput(el, prefix, config) {
     const labelElement = document.createElement('label');
     labelElement.innerHTML = camelCaseToTitleCase(config.name);
     el.appendChild(labelElement);
     appendLineBreak(el);
 
-    const id = `player${capitalize(config.name)}`;
+    const id = `${prefix}${capitalize(config.name)}`;
 
     switch(config.type) {
         case 'optionset':
@@ -64,9 +68,21 @@ function appendPlayerInput(el, config) {
             selectElement.id = id;
 
             for(const option of config.options) {
+                let value, display;
+                if(typeof option == 'string') {
+                    value = display = option;
+                } else {
+                    value = option.value;
+                    display = option.display;
+                }
+
                 const optionElement = document.createElement('option');
-                optionElement.value = optionElement.innerHTML = option;
-                if(config.value == option) optionElement.selected = true;
+
+                optionElement.value = value;
+                optionElement.innerHTML = display;
+
+                if(config.value == value) optionElement.selected = true;
+
                 selectElement.appendChild(optionElement);
             }
 
@@ -95,6 +111,3 @@ function appendPlayerInput(el, config) {
 
     appendLineBreak(el);
 }
-
-// <label>Min Damage</label>
-// <input type="number" id="playerMinDamage" value="1" />

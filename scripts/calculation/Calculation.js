@@ -7,19 +7,76 @@ import { camelCaseToTitleCase, capitalize } from "../util/String.js";
 
 const SIMS = 10000;
 
-const calculations = {
-    playerHitChance(values) {
-        const monsterEvasion = values[`monster${capitalize(values.playerStyle)}Evasion`];
+const COMBAT_TRIANGLE = {
+    'melee': {
+        'melee': '😐',
+        'ranged': '😁',
+        'magic': '😰',
+    },
+    'ranged': {
+        'melee': '😰',
+        'ranged': '😐',
+        'magic': '😁',
+    },
+    'magic': {
+        'melee': '😁',
+        'ranged': '😰',
+        'magic': '😐',
+    },
+};
 
-        if(values.playerAccuracy < monsterEvasion) {
-            return values.playerAccuracy / monsterEvasion * 50;
-        } else {
-            return 100 - monsterEvasion / values.playerAccuracy * 50;
-        }
+const calculations = {
+    playerHitChance: {
+        format(value) {
+            return `${value} %`;
+        },
+
+        calculate(values) {
+            const monsterEvasion = values[`monster${capitalize(values.playerStyle)}Evasion`];
+
+            if(values.playerAccuracy < monsterEvasion) {
+                return values.playerAccuracy / monsterEvasion * 50;
+            } else {
+                return 100 - monsterEvasion / values.playerAccuracy * 50;
+            }
+        },
+    },
+
+    combatTriangle(values) {
+        return COMBAT_TRIANGLE[values.playerStyle][values.monsterStyle];
+    },
+
+    combatTriangleMaxDamageBonus: {
+        hide: true,
+
+        format(value) {
+            return `${value} %`;
+        },
+
+        calculate(values) {
+            switch(values.combatTriangle) {
+                case '😰':
+                    return -15;
+                case '😐':
+                    return 0;
+                case '😁':
+                    return 10;
+                default:
+                    throw new Error(`Unknown combat triangle pairing: ${values.playerStyle}, ${values.monsterStyle}`);
+            }
+        },
+    },
+
+    playerModifiedMaxDamage: {
+        hide: true,
+
+        calculate(values) {
+            return values.playerMaxDamage * (1 + values.combatTriangleMaxDamageBonus / 100);
+        },
     },
 
     playerAverageDamagePerHit(values) {
-        return (values.playerMinDamage + values.playerMaxDamage) / 2;
+        return (values.playerMinDamage + values.playerModifiedMaxDamage) / 2;
     },
 
     playerDps(values) {
@@ -41,7 +98,7 @@ const calculations = {
 
                 let monsterHp = values.monsterMaxHp;
                 while(monsterHp > 0) {
-                    let hit = randInt(values.playerMinDamage, values.playerMaxDamage);
+                    let hit = randInt(values.playerMinDamage, values.playerModifiedMaxDamage);
                     monsterHp -= hit;
                     hits++;
 
@@ -113,7 +170,7 @@ export function renderCalculationsTo(el) {
     removeChildren(el);
     for(const key in calculations)
         if(! calculations[key].hide)
-            appendOutputRow(el, key, values[key]);
+            appendOutputRow(el, key, values[key], calculations[key].format);
 }
 
 /**
@@ -189,13 +246,14 @@ function getFormValues() {
  * @param {!HTMLElement} el 
  * @param {string} key 
  * @param {any} value 
+ * @param {function} formatFn 
  */
-function appendOutputRow(el, key, value) {
+function appendOutputRow(el, key, value, formatFn) {
     const rowElement = document.createElement('div');
     rowElement.className = 'row';
 
     appendOutputRowLabel(rowElement, key);
-    appendOutputRowValue(rowElement, value);
+    appendOutputRowValue(rowElement, value, formatFn);
     appendLineBreak(rowElement);    
 
     el.appendChild(rowElement);
@@ -216,14 +274,17 @@ function appendOutputRowLabel(rowEl, key) {
 /**
  * @param {!HTMLElement} rowEl 
  * @param {any} value 
+ * @param {function} formatFn 
  */
-function appendOutputRowValue(rowEl, value) {
+function appendOutputRowValue(rowEl, value, formatFn) {
     const valueElement = document.createElement('span');
     valueElement.className = 'value';
     
     let text = value;
     if(typeof value == 'number')
         text = value.toFixed(1);
+    if(formatFn)
+        text = formatFn(text);
     valueElement.innerHTML = text;
 
     rowEl.appendChild(valueElement);
