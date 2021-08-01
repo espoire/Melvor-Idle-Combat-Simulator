@@ -22,20 +22,28 @@ export function renderCalculationsTo(el) {
 export function renderFindMonsterTo(el) {
     const ranking = rankBestMonsterForXp();
 
-    console.log(ranking);
-
     removeChildren(el);
-    appendTableHead(el, "Xp Hz", "Monster", "Level", "Style");
+    appendTableHead(
+        el,
+        "Xp Hz",
+        "Monster",
+        "Level",
+        "Style",
+        "Area",
+        "Slayer"
+    );
     for(const monsterInfo of ranking) {
         if(monsterInfo.rank >= 20) break;
-        if(monsterInfo.xpHz < 0.8 * ranking[0].xpHz) break;
+        if(monsterInfo.xpHz < 0.7 * ranking[0].xpHz) break;
 
         appendTableRow(
             el,
             monsterInfo.xpHz.toFixed(1),
             monsterInfo.monster.name,
             monsterInfo.monster.combatLevel,
-            STYLE_NAME_TO_EMOJI[monsterInfo.monster.style]
+            STYLE_NAME_TO_EMOJI[monsterInfo.monster.style],
+            monsterInfo.monster.location.name,
+            monsterInfo.monster.slayerLevel || '--',
         );
     }
 }

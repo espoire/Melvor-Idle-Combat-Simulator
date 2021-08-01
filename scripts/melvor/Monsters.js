@@ -1,3 +1,4 @@
+import { decorateMonsterConfigWithLocationInfo } from "./Combat Areas.js";
 import SPELLS from "./Spells.js";
 
 let MONSTERS = [
@@ -6838,6 +6839,7 @@ class Monster {
 
     constructor(config) {
         this.name = config.name;
+        this.id = config.id;
         this.combatLevel = Monster._getCombatLevel(config);
         this.hp = config.hitpoints * 10;
 
@@ -6860,7 +6862,9 @@ class Monster {
             },
         };
 
-        this.includeInSearch = (! config.isBoss);
+        this.location = config.location;
+        this.slayerLevel = config.slayerLevel;
+        this.includeInSearch = !(config.isBoss || config.isDungeonOnly);
     }
 
     toString() {
@@ -6906,9 +6910,11 @@ class Monster {
     }
 }
 
-MONSTERS = MONSTERS.map(config =>
-    new Monster(config)
-).sort((a, b) =>
+MONSTERS = MONSTERS.map((config, i) => {
+    config.id = i;
+    decorateMonsterConfigWithLocationInfo(config);
+    return new Monster(config);
+}).sort((a, b) =>
     a.combatLevel - b.combatLevel
 );
 
