@@ -1,4 +1,4 @@
-import { renderCalculationsTo, renderFindMonsterTo } from "./scripts/calculation/Calculation.js";
+import { renderCalculationsTo, renderFindMonsterTo } from "./scripts/calculation/CalculationController.js";
 import appendMonsterOptions, { appendMonsterInputs, onMonsterOptionSelected } from "./scripts/ui/Monster.js";
 import { appendPlayerInputs } from "./scripts/ui/Player.js";
 

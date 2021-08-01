@@ -1,3 +1,5 @@
+import { camelCaseToTitleCase } from "./String.js";
+
 /**
  * @param {!HTMLElement} el 
  */
@@ -28,4 +30,52 @@ export function appendLineBreak(el) {
 export function setInputValue(id, value) {
     const inputEl = document.getElementById(id);
     inputEl.value = value;
+}
+
+/**
+ * @param {!HTMLElement} el 
+ * @param {string} key 
+ * @param {any} value 
+ * @param {function} formatFn 
+ */
+export function appendKeyValueRow(el, key, value, formatFn) {
+    const rowElement = document.createElement('div');
+    rowElement.className = 'row';
+
+    appendKeyValueRowLabel(rowElement, key);
+    appendKeyValueRowValue(rowElement, value, formatFn);
+    appendLineBreak(rowElement);    
+
+    el.appendChild(rowElement);
+}
+
+/**
+ * @param {!HTMLElement} el 
+ * @param {string} key 
+ */
+function appendKeyValueRowLabel(rowEl, key) {
+    const labelElement = document.createElement('label');
+
+    labelElement.innerHTML = camelCaseToTitleCase(key);
+
+    rowEl.appendChild(labelElement);
+}
+
+/**
+ * @param {!HTMLElement} rowEl 
+ * @param {any} value 
+ * @param {function} formatFn 
+ */
+function appendKeyValueRowValue(rowEl, value, formatFn) {
+    const valueElement = document.createElement('span');
+    valueElement.className = 'value';
+    
+    let text = value;
+    if(typeof value == 'number')
+        text = value.toFixed(1);
+    if(formatFn)
+        text = formatFn(text);
+    valueElement.innerHTML = text;
+
+    rowEl.appendChild(valueElement);
 }
