@@ -17,3 +17,11 @@ const COMBAT_TRIANGLE = {
 };
 
 export default COMBAT_TRIANGLE;
+
+const STYLE_NAME_TO_EMOJI = {
+    melee: '⚔',
+    ranged: '🏹',
+    magic: '🧙‍♂️',
+};
+
+export { STYLE_NAME_TO_EMOJI };

@@ -63,5 +63,10 @@ label.section ::after {
   font-size: larger;
   font-weight: bold;
 }
+#calculate-output #calculations tr th, #calculate-output #calculations tr td, #calculate-output #found-monster tr th, #calculate-output #found-monster tr td, #find-monster-output #calculations tr th, #find-monster-output #calculations tr td, #find-monster-output #found-monster tr th, #find-monster-output #found-monster tr td {
+  text-align: center;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
 
 /*# sourceMappingURL=main.css.map */

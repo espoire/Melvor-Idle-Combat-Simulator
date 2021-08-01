@@ -79,3 +79,37 @@ function appendKeyValueRowValue(rowEl, value, formatFn) {
 
     rowEl.appendChild(valueElement);
 }
+
+/**
+ * @param {!HTMLElement} el 
+ * @param  {...string} headers 
+ */
+export function appendTableHead(el, ...headers) {
+    const trElement = document.createElement('tr');
+
+    for(const header of headers) {
+        const thElement = document.createElement('th');
+        thElement.innerHTML = header;
+
+        trElement.appendChild(thElement);
+    }
+
+    el.appendChild(trElement);
+}
+
+/**
+ * @param {!HTMLElement} el 
+ * @param  {...string} data 
+ */
+ export function appendTableRow(el, ...data) {
+    const trElement = document.createElement('tr');
+
+    for(const datum of data) {
+        const tdElement = document.createElement('td');
+        tdElement.innerHTML = datum;
+
+        trElement.appendChild(tdElement);
+    }
+
+    el.appendChild(trElement);
+}

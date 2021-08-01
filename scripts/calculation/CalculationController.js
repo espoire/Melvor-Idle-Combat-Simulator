@@ -1,7 +1,8 @@
 import { MONSTERS } from "../melvor/Monsters.js";
 import { setValuesForMonster } from "../ui/Monster.js";
-import { appendKeyValueRow, removeChildren } from "../util/Element.js";
+import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from "../util/Element.js";
 import calculations from "./Calculation.js";
+import { STYLE_NAME_TO_EMOJI } from "./Combat Triangle.js";
 
 /**
  * @param {!HTMLElement} el 
@@ -19,11 +20,24 @@ export function renderCalculationsTo(el) {
  * @param {!HTMLElement} el 
  */
 export function renderFindMonsterTo(el) {
-    const best = findBestMonsterForXp();
+    const ranking = rankBestMonsterForXp();
+
+    console.log(ranking);
 
     removeChildren(el);
-    for(const key in best)
-        appendKeyValueRow(el, key, best[key]);
+    appendTableHead(el, "Xp Hz", "Monster", "Level", "Style");
+    for(const monsterInfo of ranking) {
+        if(monsterInfo.rank >= 20) break;
+        if(monsterInfo.xpHz < 0.8 * ranking[0].xpHz) break;
+
+        appendTableRow(
+            el,
+            monsterInfo.xpHz.toFixed(1),
+            monsterInfo.monster.name,
+            monsterInfo.monster.combatLevel,
+            STYLE_NAME_TO_EMOJI[monsterInfo.monster.style]
+        );
+    }
 }
 
 function doCalculations() {
@@ -31,25 +45,29 @@ function doCalculations() {
     return doCalculationsWith(values);
 }
 
-function findBestMonsterForXp() {
-    let bestXpHz = -1;
-    let bestMonster = null;
+function rankBestMonsterForXp() {
+    const ranking = [];
 
     for(const monster of MONSTERS) {
         if(! monster.includeInSearch) continue;
 
         const xpHz = doCalculationsFor(monster).xpHz;
 
-        if(xpHz > bestXpHz) {
-            bestXpHz = xpHz;
-            bestMonster = monster;
-        }
+        ranking.push({
+            monster,
+            xpHz,
+        });
     }
 
-    return {
-        monster: bestMonster.toString(),
-        xpHz: bestXpHz,
-    };
+    // Sort descending by `xpHz`
+    ranking.sort(
+        (a, b) => b.xpHz - a.xpHz
+    );
+
+    for(let i = 0 ; i < ranking.length; i++)
+        ranking[i].rank = i;
+
+    return ranking;
 }
 
 function doCalculationsFor(monster) {

@@ -8,7 +8,7 @@ window.onCalculateButtonClick = function () {
 };
 window.onFindMonsterButtonClick = function () {
     renderFindMonsterTo(document.getElementById('found-monster'));
-    document.getElementById('find-monster-output').style.display = 'table';
+    document.getElementById('find-monster-output').style.display = 'inline';
 }
 
 window.onMonsterSelected = onMonsterOptionSelected;

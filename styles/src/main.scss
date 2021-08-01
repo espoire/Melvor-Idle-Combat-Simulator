@@ -99,5 +99,13 @@ label.section {
                 font-weight: bold;
             }
         }
+
+        tr {
+            th, td {
+                text-align: center;
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+            }
+        }
     }
 }
