@@ -15,3 +15,7 @@ export function camelCaseToTitleCase(string) {
 function isUpperCase(char) {
     return (char == char.toUpperCase() && char != char.toLowerCase());
 }
+
+export function capitalize(string) {
+    return string[0].toUpperCase() + string.substring(1);
+}

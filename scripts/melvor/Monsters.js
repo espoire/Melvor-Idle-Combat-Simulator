@@ -6838,7 +6838,7 @@ class Monster {
 
     constructor(config) {
         this.name = config.name;
-        this.combatLevel = Monster.getCombatLevel(config);
+        this.combatLevel = Monster._getCombatLevel(config);
         this.hp = config.hitpoints * 10;
 
         this.style = Monster.STYLE_NAMES[config.attackType];
@@ -6859,9 +6859,15 @@ class Monster {
                 evasion: (config.magicLevel * 0.7 + config.defenceLevel * 0.3 + 9) * (config.defenceBonusMagic + 64),
             },
         };
+
+        this.includeInSearch = (! config.isBoss);
     }
 
-    static getCombatLevel(config) {
+    toString() {
+        return `${this.name} (Level ${this.combatLevel})`;
+    }
+
+    static _getCombatLevel(config) {
         const meleeCombatLevel = 13 / 40 * (config.attackLevel + config.strengthLevel);
         const rangedCombatLevel = 39 / 80 * config.rangedLevel;
         const magicCombatLevel = 39 / 80 * config.magicLevel;
@@ -6910,4 +6916,4 @@ const MONSTERS_BY_NAME = {};
 for(const monster of MONSTERS)
     MONSTERS_BY_NAME[monster.name] = monster;
 
-export default MONSTERS_BY_NAME;
+export { MONSTERS, MONSTERS_BY_NAME };

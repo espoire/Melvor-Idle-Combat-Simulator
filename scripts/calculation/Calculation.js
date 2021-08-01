@@ -1,13 +1,29 @@
+import { MONSTERS } from "../melvor/Monsters.js";
+import { setValuesForMonster } from "../ui/Monster.js";
 import { average } from "../util/Array.js";
 import { appendLineBreak, removeChildren } from "../util/Element.js";
 import { randInt } from "../util/Random.js";
-import { camelCaseToTitleCase } from "../util/String.js";
+import { camelCaseToTitleCase, capitalize } from "../util/String.js";
 
-const SIMS = 100000;
+const SIMS = 10000;
 
 const calculations = {
+    playerHitChance(values) {
+        const monsterEvasion = values[`monster${capitalize(values.playerStyle)}Evasion`];
+
+        if(values.playerAccuracy < monsterEvasion) {
+            return values.playerAccuracy / monsterEvasion * 50;
+        } else {
+            return 100 - monsterEvasion / values.playerAccuracy * 50;
+        }
+    },
+
     playerAverageDamagePerHit(values) {
         return (values.playerMinDamage + values.playerMaxDamage) / 2;
+    },
+
+    playerDps(values) {
+        return values.playerAverageDamagePerHit * values.playerHitChance / 100 / values.playerSpeed;
     },
 
     // naiveHitsToKill(values) {
@@ -28,6 +44,8 @@ const calculations = {
                     let hit = randInt(values.playerMinDamage, values.playerMaxDamage);
                     monsterHp -= hit;
                     hits++;
+
+                    if(hits > 100) return 100;
                 }
 
                 simResults.push(hits);
@@ -45,12 +63,16 @@ const calculations = {
         hide: true,
 
         calculate(values) {
-            return values.simulatedAverageAttacksToKill * values.playerAttackSpeed;
+            return values.simulatedAverageAttacksToKill * values.playerSpeed;
         },
     },
 
     averageTimeToKillAndRespawn(values) {
         return values.averageTimeToKill + 3.0;
+    },
+
+    xpHz(values) {
+        return values.monsterMaxHp * 0.4 / values.averageTimeToKillAndRespawn;
     },
 
     // killHz(values) {
@@ -86,25 +108,68 @@ export default calculations;
  * @param {!HTMLElement} el 
  */
 export function renderCalculationsTo(el) {
+    const values = doCalculations();
+
     removeChildren(el);
+    for(const key in calculations)
+        if(! calculations[key].hide)
+            appendOutputRow(el, key, values[key]);
+}
+
+/**
+ * @param {!HTMLElement} el 
+ */
+export function renderFindMonsterTo(el) {
+    const best = findBestMonsterForXp();
+
+    removeChildren(el);
+    for(const key in best)
+        appendOutputRow(el, key, best[key]);
+}
+
+function doCalculations() {
     const values = getFormValues();
+    return doCalculationsWith(values);
+}
 
-    for(const key in calculations) {
-        const calculation = calculations[key];
-        const value = calculation.calculate(values);
-        
-        values[key] = value;
+function findBestMonsterForXp() {
+    let bestXpHz = -1;
+    let bestMonster = null;
 
-        if(!calculation.hide)
-            appendOutputRow(el, key, value);
+    for(const monster of MONSTERS) {
+        if(! monster.includeInSearch) continue;
+
+        const xpHz = doCalculationsFor(monster).xpHz;
+
+        if(xpHz > bestXpHz) {
+            bestXpHz = xpHz;
+            bestMonster = monster;
+        }
     }
+
+    return {
+        monster: bestMonster.toString(),
+        xpHz: bestXpHz,
+    };
+}
+
+function doCalculationsFor(monster) {
+    const values = getFormValues();
+    setValuesForMonster(values, monster);
+    return doCalculationsWith(values);
+}
+
+function doCalculationsWith(values) {
+    for(const key in calculations)
+        values[key] = calculations[key].calculate(values);
+    
+    return values;
 }
 
 function getFormValues() {
     const ret = {};
 
-    const inputs = document.getElementsByTagName('input');
-    for(const input of inputs) {
+    for(const input of document.getElementsByTagName('input')) {
         let value = input.value; // Always a `string` type by default.
 
         if(input.type == 'number') {
@@ -113,6 +178,9 @@ function getFormValues() {
 
         ret[input.id] = value;
     }
+
+    for(const select of document.getElementsByTagName('select'))
+        ret[select.id] = select.value;
 
     return ret;
 }

@@ -74,11 +74,11 @@ label.section {
     }
 }
 
-#output {
+#calculate-output, #find-monster-output {
     white-space: pre-line;
     padding-top: 1em;
 
-    #calculations {
+    #calculations, #found-monster {
         margin-left: 20px;
         
         .row {

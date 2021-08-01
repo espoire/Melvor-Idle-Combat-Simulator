@@ -41,24 +41,24 @@ label.section ::after {
   margin-left: 20px;
 }
 
-#output {
+#calculate-output, #find-monster-output {
   white-space: pre-line;
   padding-top: 1em;
 }
-#output #calculations {
+#calculate-output #calculations, #calculate-output #found-monster, #find-monster-output #calculations, #find-monster-output #found-monster {
   margin-left: 20px;
 }
-#output #calculations .row {
+#calculate-output #calculations .row, #calculate-output #found-monster .row, #find-monster-output #calculations .row, #find-monster-output #found-monster .row {
   display: table-row;
 }
-#output #calculations .row * {
+#calculate-output #calculations .row *, #calculate-output #found-monster .row *, #find-monster-output #calculations .row *, #find-monster-output #found-monster .row * {
   display: table-cell;
 }
-#output #calculations .row label {
+#calculate-output #calculations .row label, #calculate-output #found-monster .row label, #find-monster-output #calculations .row label, #find-monster-output #found-monster .row label {
   text-align: right;
   padding-right: 1em;
 }
-#output #calculations .row .value {
+#calculate-output #calculations .row .value, #calculate-output #found-monster .row .value, #find-monster-output #calculations .row .value, #find-monster-output #found-monster .row .value {
   font-size: larger;
   font-weight: bold;
 }

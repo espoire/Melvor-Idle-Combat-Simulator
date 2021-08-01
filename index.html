@@ -12,14 +12,6 @@
 		<div id="input">
 			<label class="section">🙂 Player</label>
 			<div id="player">
-				<label>Min Damage</label>
-				<input type="number" id="playerMinDamage" value="1" />
-				<label>Max Damage</label>
-				<input type="number" id="playerMaxDamage" value="221" />
-				<label>Hit Chance</label>
-				<input type="number" id="playerHitChance" value="95" /><b>%</b>
-				<label>Attack Speed</label>
-				<input type="number" id="playerAttackSpeed" value="2.6" />
 			</div>
 			
 			<label class="section">😈 Monster</label>
@@ -30,14 +22,26 @@
 				Or input stats directly:
 				<label>Max HP</label>
 				<input type="number" id="monsterMaxHp" value="600" />
+				<label>Melee Evasion</label>
+				<input type="number" id="monsterMeleeEvasion" value="1856" />
+				<label>Ranged Evasion</label>
+				<input type="number" id="monsterRangedEvasion" value="1856" />
+				<label>Magic Evasion</label>
+				<input type="number" id="monsterMagicEvasion" value="6968" />
 			</div>
 		</div>
 			
 		<button onclick="onCalculateButtonClick();">Calculate</button>
+		<button onclick="onFindMonsterButtonClick();">Find Best Monster for XP</button>
 
-		<div id="output" style="display: none;">
+		<div id="calculate-output" style="display: none;">
 			<label class="section">🖥 Calculations</label>
 			<div id="calculations"></div>
+		</div>
+
+		<div id="find-monster-output" style="display: none;">
+			<label class="section">👑😈 Best Monster for XP</label>
+			<div id="found-monster"></div>
 		</div>
 	</body>
 </html>
