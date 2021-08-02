@@ -54,34 +54,58 @@
 
 body {
     margin: 0;
-    padding-left: 1em;
     color: vars.$color-dark;
     background-color: vars.$color-light;
 }
 
+tr {
+    th {
+        text-decoration: white underline;
+    }
+    th, td {
+        text-align: center;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+}
+
+.debug {
+    border: 1px solid white;
+}
+
+.indent {
+    margin-left: 20px;
+}
+
+.wrapper {
+    display: inline-block;
+    vertical-align: top;
+
+    white-space: pre-line;
+
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.marquee {
+    display: flex;
+    justify-content: center;
+
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
 label.section {
     font-weight: bold;
+    font-size: larger;
 
     ::after {
         content: none;
     }
 }
 
-#input {
-    white-space: pre-line;
-
-    #player, #monster {
-        margin-left: 20px;
-    }
-}
-
-#calculate-output, #find-monster-output {
-    white-space: pre-line;
-    padding-top: 1em;
-
-    #calculations, #found-monster {
-        margin-left: 20px;
-        
+#calculate-output {
+    #calculations {
         .row {
             display: table-row;
             
@@ -97,14 +121,6 @@ label.section {
             .value {
                 font-size: larger;
                 font-weight: bold;
-            }
-        }
-
-        tr {
-            th, td {
-                text-align: center;
-                padding-left: 0.5em;
-                padding-right: 0.5em;
             }
         }
     }

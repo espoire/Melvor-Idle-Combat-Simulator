@@ -10,31 +10,37 @@
 
 	<body>
 		<div id="input">
-			<label class="section">🙂 Player</label>
-			<div id="player">
+			<div id="player-wrapper" class="wrapper">
+				<label class="section">🙂 Player</label>
+				<div id="player" class="indent">
+				</div>
 			</div>
 			
-			<label class="section">😈 Monster</label>
-			<div id="monster">
-				<label>Select a Monster</label>
-				<select id="monster-select" onchange="onMonsterSelected();"></select>
+			<div id="monster-wrapper" class="wrapper">
+				<label class="section">😈 Monster</label>
+				<div id="monster" class="indent">
+					<label>Select a Monster</label>
+					<select id="monster-select" onchange="onMonsterSelected();"></select>
 
-				Or input stats directly:
-				<div id="monster-inputs"></div>
+					Or input stats directly:
+					<div id="monster-inputs"></div>
+				</div>
 			</div>
 		</div>
-			
-		<button onclick="onCalculateButtonClick();">Calculate</button>
-		<button onclick="onFindMonsterButtonClick();">Find Best Monster for XP</button>
+		
+		<div id="buttons-bar" class="marquee debug">
+			<button onclick="onCalculateButtonClick();">Calculate</button>
+			<button onclick="onFindMonsterButtonClick();">Find Best Monster for XP</button>
+		</div>
 
-		<div id="calculate-output" style="display: none;">
+		<div id="calculate-output" class="wrapper debug" style="display: none;">
 			<label class="section">🖥 Calculations</label>
-			<div id="calculations"></div>
+			<div id="calculations" class="indent"></div>
 		</div>
 
-		<div id="find-monster-output" style="display: none;">
+		<div id="find-monster-output" class="wrapper debug" style="display: none;">
 			<label class="section">👑😈 Best Monster for XP</label>
-			<table id="found-monster"></table>
+			<table id="found-monster" class="indent"></table>
 		</div>
 	</body>
 </html>

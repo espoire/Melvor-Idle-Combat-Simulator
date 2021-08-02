@@ -4,11 +4,11 @@ import { appendPlayerInputs } from "./scripts/ui/Player.js";
 
 window.onCalculateButtonClick = function () {
     renderCalculationsTo(document.getElementById('calculations'));
-    document.getElementById('calculate-output').style.display = 'table';
+    document.getElementById('calculate-output').style.display = 'inline-block';
 };
 window.onFindMonsterButtonClick = function () {
     renderFindMonsterTo(document.getElementById('found-monster'));
-    document.getElementById('find-monster-output').style.display = 'inline';
+    document.getElementById('find-monster-output').style.display = 'inline-block';
 }
 
 window.onMonsterSelected = onMonsterOptionSelected;
@@ -20,4 +20,3 @@ window.onMonsterSelected = onMonsterOptionSelected;
     appendMonsterOptions(document.getElementById('monster-select'));
     appendMonsterInputs(document.getElementById('monster-inputs'));
 })();
-

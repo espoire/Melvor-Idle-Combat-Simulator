@@ -23,50 +23,63 @@
 
 body {
   margin: 0;
-  padding-left: 1em;
   color: #cbc5bf;
   background-color: #070605;
 }
 
+tr th {
+  text-decoration: white underline;
+}
+tr th, tr td {
+  text-align: center;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.debug {
+  border: 1px solid white;
+}
+
+.indent {
+  margin-left: 20px;
+}
+
+.wrapper {
+  display: inline-block;
+  vertical-align: top;
+  white-space: pre-line;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.marquee {
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
 label.section {
   font-weight: bold;
+  font-size: larger;
 }
 label.section ::after {
   content: none;
 }
 
-#input {
-  white-space: pre-line;
-}
-#input #player, #input #monster {
-  margin-left: 20px;
-}
-
-#calculate-output, #find-monster-output {
-  white-space: pre-line;
-  padding-top: 1em;
-}
-#calculate-output #calculations, #calculate-output #found-monster, #find-monster-output #calculations, #find-monster-output #found-monster {
-  margin-left: 20px;
-}
-#calculate-output #calculations .row, #calculate-output #found-monster .row, #find-monster-output #calculations .row, #find-monster-output #found-monster .row {
+#calculate-output #calculations .row {
   display: table-row;
 }
-#calculate-output #calculations .row *, #calculate-output #found-monster .row *, #find-monster-output #calculations .row *, #find-monster-output #found-monster .row * {
+#calculate-output #calculations .row * {
   display: table-cell;
 }
-#calculate-output #calculations .row label, #calculate-output #found-monster .row label, #find-monster-output #calculations .row label, #find-monster-output #found-monster .row label {
+#calculate-output #calculations .row label {
   text-align: right;
   padding-right: 1em;
 }
-#calculate-output #calculations .row .value, #calculate-output #found-monster .row .value, #find-monster-output #calculations .row .value, #find-monster-output #found-monster .row .value {
+#calculate-output #calculations .row .value {
   font-size: larger;
   font-weight: bold;
-}
-#calculate-output #calculations tr th, #calculate-output #calculations tr td, #calculate-output #found-monster tr th, #calculate-output #found-monster tr td, #find-monster-output #calculations tr th, #find-monster-output #calculations tr td, #find-monster-output #found-monster tr th, #find-monster-output #found-monster tr td {
-  text-align: center;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
 }
 
 /*# sourceMappingURL=main.css.map */
