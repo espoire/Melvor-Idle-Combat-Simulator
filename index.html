@@ -9,50 +9,78 @@
 	</head>
 
 	<body>
-		<div id="input">
-			<div id="player-wrapper" class="wrapper">
-				<label class="section">🙂 Player</label>
-				<div id="player" class="indent">
+		<div id="page-container">
+			<div id="content-wrap">
+				<div id="header" class="title-bar brighter-background">
+					<h1>Melvor Combat Simulator</h1>
+				</div>
+				
+				<div id="input">
+					<div id="player-wrapper" class="wrapper">
+						<label class="section">🙂 Player</label>
+						<div id="player" class="indent">
+						</div>
+					</div>
+					
+					<div id="monster-wrapper" class="wrapper">
+						<label class="section">😈 Monster</label>
+						<div id="monster" class="indent">
+							<label>Select a Monster</label>
+							<select id="monster-select" onchange="onMonsterSelected();"></select>
+							
+							Or input stats directly:
+							<div id="monster-inputs"></div>
+						</div>
+					</div>
+					
+					<div id="options-wrapper" class="wrapper">
+						<label class="section">⚙ Options</label>
+						<div id="options" class="indent">
+						</div>
+					</div>
+				</div>
+				
+				<div id="buttons-bar" class="banner centered-items">
+					<button onclick="onCalculateButtonClick();">Calculate</button>
+					<button onclick="onFindMonsterButtonClick();">Find Best Monsters for XP</button>
+					<button onclick="onShowSlayerButtonClick();">Show Slayer Monsters</button>
+				</div>
+				
+				<div id="output">
+					<div id="calculate-output" class="wrapper" style="display: none;">
+						<label class="section">🖥 Calculations</label>
+						<div id="calculations" class="indent"></div>
+					</div>
+					
+					<div id="find-monster-output" class="wrapper" style="display: none;">
+						<label class="section">👑😈 Best Monster for XP</label>
+						<table id="found-monster" class="indent"></table>
+					</div>
+					
+					<div id="show-slayer-output" class="wrapper" style="display: none;">
+						<label class="section">💀😈 Slayer Monsters</label>
+						<table id="slayer-table" class="indent"></table>
+					</div>
 				</div>
 			</div>
-			
-			<div id="monster-wrapper" class="wrapper">
-				<label class="section">😈 Monster</label>
-				<div id="monster" class="indent">
-					<label>Select a Monster</label>
-					<select id="monster-select" onchange="onMonsterSelected();"></select>
 
-					Or input stats directly:
-					<div id="monster-inputs"></div>
+			<div id="footer" class="title-bar brighter-background">
+				<div>
+					I am not affiliated with Melvor Idle.
+					This is a fan site.
+				</div>
+				<div>
+					The copyright for Melvor Idle is held by Malcs.
+				</div>
+				<div>
+					Play Melvor Idle on the official site at
+					<a href="https://melvoridle.com/">melvoridle.com</a>.
+				</div>
+				<div>
+					Feedback on this calculator?
+					<a href="mailto:a.pergrossi@gmail.com?subject=Melvor Combat Simulator feedback">Contact me</a>.
 				</div>
 			</div>
-
-			<div id="options-wrapper" class="wrapper">
-				<label class="section">⚙ Options</label>
-				<div id="options" class="indent">
-				</div>
-			</div>
-		</div>
-		
-		<div id="buttons-bar" class="marquee">
-			<button onclick="onCalculateButtonClick();">Calculate</button>
-			<button onclick="onFindMonsterButtonClick();">Find Best Monsters for XP</button>
-			<button onclick="onShowSlayerButtonClick();">Show Slayer Monsters</button>
-		</div>
-
-		<div id="calculate-output" class="wrapper" style="display: none;">
-			<label class="section">🖥 Calculations</label>
-			<div id="calculations" class="indent"></div>
-		</div>
-
-		<div id="find-monster-output" class="wrapper" style="display: none;">
-			<label class="section">👑😈 Best Monster for XP</label>
-			<table id="found-monster" class="indent"></table>
-		</div>
-
-		<div id="show-slayer-output" class="wrapper" style="display: none;">
-			<label class="section">💀😈 Slayer Monsters</label>
-			<table id="slayer-table" class="indent"></table>
 		</div>
 	</body>
 </html>
