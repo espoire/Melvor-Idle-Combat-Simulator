@@ -1,8 +1,13 @@
 import { MONSTERS, MONSTERS_BY_NAME } from "../melvor/Monsters.js";
 import { appendOption, setInputValue } from "../util/Element.js";
-import { appendInput } from "./Player.js";
+import { appendInput } from "./PlayerUI.js";
 
 const INPUTS = {
+    maxHp: {
+        value: 600,
+        min: 1,
+    },
+
     style: {
         type: 'optionset',
         options: [
@@ -13,9 +18,10 @@ const INPUTS = {
         value: 'magic',
     },
 
-    maxHp: {
-        value: 600,
+    maxDamage: {
+        value: 170,
         min: 1,
+        step: 1,
     },
 
     meleeEvasion: {
@@ -78,8 +84,9 @@ export function onMonsterOptionSelected() {
 
     if(!monster) return;
 
-    setInputValue('monsterStyle', monster.style);
     setInputValue('monsterMaxHp', monster.hp);
+    setInputValue('monsterStyle', monster.style);
+    setInputValue('monsterMaxDamage', monster.maxHit);
     setInputValue('monsterMeleeEvasion', monster.ratings.melee.evasion);
     setInputValue('monsterRangedEvasion', monster.ratings.ranged.evasion);
     setInputValue('monsterMagicEvasion', monster.ratings.magic.evasion);
@@ -88,8 +95,9 @@ export function onMonsterOptionSelected() {
 export function setValuesForMonster(values, monster) {
     if(!monster) return;
 
-    values.monsterStyle = monster.style;
     values.monsterMaxHp = monster.hp;
+    values.monsterStyle = monster.style;
+    values.monsterMaxDamage = monster.maxHit;
     values.monsterMeleeEvasion = monster.ratings.melee.evasion;
     values.monsterRangedEvasion = monster.ratings.ranged.evasion;
     values.monsterMagicEvasion = monster.ratings.magic.evasion;

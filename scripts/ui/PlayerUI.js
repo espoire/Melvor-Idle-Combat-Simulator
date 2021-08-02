@@ -33,6 +33,13 @@ const INPUTS = {
         min: 1,
     },
 
+    damageReduction: {
+        type: 'percent',
+        value: '20',
+        min: 0,
+        max: 100,
+    },
+
     autoEat: {
         label: 'Auto Eat 🦀',
         value: 216,

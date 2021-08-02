@@ -6845,7 +6845,7 @@ class Monster {
 
         this.style = Monster.STYLE_NAMES[config.attackType];
         this.speed = config.attackSpeed / 1000;
-        this.maxHit = Monster._getMaxHit(config);
+        this.maxHit = Math.floor(Monster._getMaxHit(config));
 
         this.ratings = {
             melee: {
@@ -6901,7 +6901,7 @@ class Monster {
                 } else {
                     spellBaseDamage = config.setMaxHit;
                 }
-                return spellBaseDamage * (1 + config.damageBonusMagic / 100);
+                return 10 * spellBaseDamage * (1 + config.damageBonusMagic / 100);
 
             default:
                 const error = new Error(`Unknown attackType: ${config.attackType}`);

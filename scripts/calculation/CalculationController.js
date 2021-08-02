@@ -1,5 +1,5 @@
 import { MONSTERS } from "../melvor/Monsters.js";
-import { setValuesForMonster } from "../ui/Monster.js";
+import { setValuesForMonster } from "../ui/MonsterUI.js";
 import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from "../util/Element.js";
 import calculations from "./Calculation.js";
 import { STYLE_NAME_TO_EMOJI } from "./Combat Triangle.js";
@@ -9,11 +9,12 @@ import { STYLE_NAME_TO_EMOJI } from "./Combat Triangle.js";
  */
 export function renderCalculationsTo(el) {
     const values = doCalculations();
+    const formatted = format(values);
 
     removeChildren(el);
     for(const key in calculations)
         if(! calculations[key].hide)
-            appendKeyValueRow(el, key, values[key], calculations[key].format);
+            appendKeyValueRow(el, key, formatted[key]);
 }
 
 /**
@@ -21,6 +22,7 @@ export function renderCalculationsTo(el) {
  */
 export function renderFindMonsterTo(el) {
     const ranking = rankBestMonsterForXp();
+    const bestXpHz = ranking[0].values.xpHz;
 
     removeChildren(el);
     appendTableHead(
@@ -30,20 +32,22 @@ export function renderFindMonsterTo(el) {
         "Level",
         "Style",
         "Area",
-        "Slayer"
+        "Slayer",
+        "Auto-Eat"
     );
     for(const monsterInfo of ranking) {
         if(monsterInfo.rank >= 20) break;
-        if(monsterInfo.xpHz < 0.75 * ranking[0].xpHz) break;
+        if(monsterInfo.values.xpHz < 0.75 * bestXpHz) break;
 
         appendTableRow(
             el,
-            monsterInfo.xpHz.toFixed(1),
+            monsterInfo.formattedValues.xpHz,
             monsterInfo.monster.name,
             monsterInfo.monster.combatLevel,
             STYLE_NAME_TO_EMOJI[monsterInfo.monster.style],
             monsterInfo.monster.location.name,
             monsterInfo.monster.slayerLevel || '--',
+            monsterInfo.formattedValues.autoEat
         );
     }
 }
@@ -59,17 +63,19 @@ function rankBestMonsterForXp() {
     for(const monster of MONSTERS) {
         if(! monster.includeInSearch) continue;
 
-        const xpHz = doCalculationsFor(monster).xpHz;
+        const values = doCalculationsFor(monster);
+        const formatted = format(values);
 
         ranking.push({
             monster,
-            xpHz,
+            values,
+            formattedValues: formatted,
         });
     }
 
     // Sort descending by `xpHz`
     ranking.sort(
-        (a, b) => b.xpHz - a.xpHz
+        (a, b) => b.values.xpHz - a.values.xpHz
     );
 
     for(let i = 0 ; i < ranking.length; i++)
@@ -106,6 +112,27 @@ function getFormValues() {
 
     for(const select of document.getElementsByTagName('select'))
         ret[select.id] = select.value;
+
+    return ret;
+}
+
+function format(values) {
+    const ret = {};
+
+    for(const key in values) {
+        let value = values[key];
+        const calculation = calculations[key];
+
+        if(typeof value == 'number')
+            value = value.toFixed(1);
+
+        if(typeof calculation != 'object' || !calculation.format) {
+            ret[key] = value;
+            continue;
+        }
+
+        ret[key] = calculation.format(value);
+    }
 
     return ret;
 }

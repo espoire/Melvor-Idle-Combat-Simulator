@@ -47,11 +47,74 @@ const calculations = {
         },
     },
 
+    combatTriangleDamageReductionBonus: {
+        hide: true,
+
+        format(value) {
+            return `${value} %`;
+        },
+
+        calculate(values) {
+            switch(values.combatTriangle) {
+                case '😰':
+                    return -15;
+                case '😐':
+                    return 0;
+                case '😁':
+                    return 25;
+                default:
+                    throw new Error(`Unknown combat triangle pairing: ${values.playerStyle}, ${values.monsterStyle}`);
+            }
+        },
+    },
+
+    combatTriangleDamageTakenBonus: {
+        hide: true,
+
+        format(value) {
+            return `${value} %`;
+        },
+
+        calculate(values) {
+            switch(values.combatTriangle) {
+                case '😰':
+                    return 10;
+                case '😐':
+                    return 0;
+                case '😁':
+                    return -15;
+                default:
+                    throw new Error(`Unknown combat triangle pairing: ${values.playerStyle}, ${values.monsterStyle}`);
+            }
+        },
+    },
+
     playerModifiedMaxDamage: {
         hide: true,
 
         calculate(values) {
             return values.playerMaxDamage * (1 + values.combatTriangleMaxDamageBonus / 100);
+        },
+    },
+
+    playerModifiedDamageReduction: {
+        hide: true,
+
+        calculate(values) {
+            return Math.floor(
+                values.playerDamageReduction *
+                (1 + values.combatTriangleDamageReductionBonus / 100)
+            );
+        },
+    },
+
+    monsterModifiedMaxDamage: {
+        // hide: true,
+
+        calculate(values) {
+            return values.monsterMaxDamage *
+                (1 + values.combatTriangleDamageTakenBonus / 100) *
+                (1 - values.playerModifiedDamageReduction  / 100);
         },
     },
 
@@ -63,9 +126,13 @@ const calculations = {
         return values.playerAverageDamagePerHit * values.playerHitChance / 100 / values.playerSpeed;
     },
 
-    // naiveHitsToKill(values) {
-    //     return values.monsterMaxHp / values.playerAverageDamagePerHit;
-    // },
+    naiveHitsToKill: {
+        hide: true,
+
+        calculate(values) {
+            return values.monsterMaxHp / values.playerAverageDamagePerHit;
+        },
+    },
 
     simulatedAverageHitsToKill: {
         hide: true,
@@ -112,9 +179,13 @@ const calculations = {
         return values.monsterMaxHp * 0.4 / values.averageTimeToKillAndRespawn;
     },
 
-    // killHz(values) {
-    //     return 1 / values.averageTimeToKillAndRespawn;
-    // },
+    killHz: {
+        hide: true,
+
+        calculate(values) {
+            return 1 / values.averageTimeToKillAndRespawn;
+        },
+    },
 
     killsPerMinute(values) {
         return 60 / values.averageTimeToKillAndRespawn;
@@ -122,6 +193,17 @@ const calculations = {
 
     killsPerHour(values) {
         return 3600 / values.averageTimeToKillAndRespawn;
+    },
+
+    autoEat: {
+        format(value) {
+            if(value) return '🦀👍';
+            return '💀👎';
+        },
+
+        calculate(values) {
+            return values.monsterModifiedMaxDamage <= values.playerAutoEat;
+        },
     },
 };
 

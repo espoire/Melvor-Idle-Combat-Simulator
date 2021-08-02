@@ -1,6 +1,6 @@
 import { renderCalculationsTo, renderFindMonsterTo } from "./scripts/calculation/CalculationController.js";
-import appendMonsterOptions, { appendMonsterInputs, onMonsterOptionSelected } from "./scripts/ui/Monster.js";
-import { appendPlayerInputs } from "./scripts/ui/Player.js";
+import appendMonsterOptions, { appendMonsterInputs, onMonsterOptionSelected } from "./scripts/ui/MonsterUI.js";
+import { appendPlayerInputs } from "./scripts/ui/PlayerUI.js";
 
 window.onCalculateButtonClick = function () {
     renderCalculationsTo(document.getElementById('calculations'));
