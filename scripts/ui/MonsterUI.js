@@ -95,6 +95,8 @@ export function onMonsterOptionSelected() {
 export function setValuesForMonster(values, monster) {
     if(!monster) return;
 
+    values.monster = monster;
+
     values.monsterMaxHp = monster.hp;
     values.monsterStyle = monster.style;
     values.monsterMaxDamage = monster.maxHit;

@@ -221,6 +221,32 @@ const calculations = {
             return values.slayerCoins * values.killHz;
         },
     },
+
+    baseSlayerXp: {
+        hide: true,
+
+        calculate(values) {
+            if(values.monster && values.monster.alwaysGivesSlayerXp)
+                return Math.floor(values.monsterMaxHp / 20);
+            return 0;
+        },
+    },
+
+    slayerXpIfTask: {
+        hide: true,
+
+        calculate(values) {
+            return values.slayerCoins + values.baseSlayerXp;
+        },
+    },
+
+    slayerXpHz: {
+        hide: true,
+
+        calculate(values) {
+            return values.slayerXpIfTask * values.killHz;
+        },
+    },
 };
 
 function initialize(calculations) {

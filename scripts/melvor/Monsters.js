@@ -6863,6 +6863,7 @@ class Monster {
         };
 
         this.location = config.location;
+        this.alwaysGivesSlayerXp = (config.location.type == 'slayer');
         this.canBeAssignedAsSlayerTask = config.canSlayer;
         this.slayerLevel = config.slayerLevel;
         this.includeInSearch = !(config.isBoss || config.isDungeonOnly);

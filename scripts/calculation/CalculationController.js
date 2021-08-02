@@ -1,6 +1,7 @@
 import { MONSTERS } from "../melvor/Monsters.js";
 import { SLAYER_TIERS } from "../melvor/Slayer Tasks.js";
 import { setValuesForMonster } from "../ui/MonsterUI.js";
+import { getSlayerPreferenceSortFunction } from "../ui/OptionsUI.js";
 import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from "../util/Element.js";
 import calculations from "./Calculation.js";
 import { STYLE_NAME_TO_EMOJI } from "./Combat Triangle.js";
@@ -127,12 +128,6 @@ function rankSlayerMonstersForCoins() {
         tier => tier.name == values.optionsSlayerTier
     );
 
-    if(!slayerTier) {
-        throw new Error(
-            `Unknown slayer tier: ${values.optionsSlayerTier}`
-        );
-    }
-
     const ranking = [];
     for(const monster of slayerTier.targetMonsterOptions) {
         const values = doCalculationsFor(monster);
@@ -145,11 +140,8 @@ function rankSlayerMonstersForCoins() {
         });
     }
 
-    // Sort descending by `slayerCoinHz`
-    ranking.sort( (a, b) =>
-        b.values.slayerCoinHz -
-        a.values.slayerCoinHz
-    );
+    const sortFn = getSlayerPreferenceSortFunction(values.optionsSlayerPreference);
+    ranking.sort(sortFn);
 
     for(let i = 0 ; i < ranking.length; i++)
         ranking[i].rank = i;

@@ -2,12 +2,12 @@ import { appendInput } from "./UI.js";
 
 const INPUTS = {
     minDamage: {
-        value: 1,
+        value: 80,
         min: 1,
     },
 
     maxDamage: {
-        value: 274,
+        value: 402,
         min: 1,
     },
 
@@ -24,7 +24,7 @@ const INPUTS = {
             { value: 'ranged', display: '🏹' },
             { value: 'magic', display: '🧙‍♂️' },
         ],
-        value: 'ranged',
+        value: 'magic',
     },
 
     accuracy: {

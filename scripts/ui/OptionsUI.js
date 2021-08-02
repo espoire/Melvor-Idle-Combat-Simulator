@@ -7,6 +7,16 @@ const INPUTS = {
         options: SLAYER_TIER_NAMES,
         value: SLAYER_TIER_NAMES[1],
     },
+
+    slayerPreference: {
+        type: 'optionset',
+        options: [
+            { value: 'coins', display: '💀🟢' },
+            { value: 'slayerxp', display: '💀 XP' },
+            { value: 'totalxp', display: '💀⚔🏹🧙‍♂️ XP' },
+        ],
+        value: 'coins',
+    },
 };
 
 /**
@@ -27,4 +37,32 @@ export function appendOptionsInputs(el) {
  */
 function appendOptionsInput(el, config) {
     appendInput(el, 'options', config);
+}
+
+export function getSlayerPreferenceSortFunction(preference) {
+    switch (preference) {
+        case 'coins':
+            // Sort descending by `slayerCoinHz`
+            return ((a, b) =>
+                b.values.slayerCoinHz -
+                a.values.slayerCoinHz
+            );
+
+        case 'slayerxp':
+            // Sort descending by `slayerXpHz`
+            return ((a, b) =>
+                b.values.slayerXpHz -
+                a.values.slayerXpHz
+            );
+
+        case 'totalxp':
+            // Sort descending by `slayerXpHz + xpHz`
+            return ((a, b) =>
+                (b.values.slayerXpHz + b.values.xpHz) -
+                (a.values.slayerXpHz + a.values.xpHz)
+            );
+
+        default:
+            throw new Error(`Unknown slayer preference: ${values.optionsSlayerPreference}`);
+    }
 }
