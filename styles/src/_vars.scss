@@ -1,12 +1,12 @@
 @use "sass:color";
 
 $theme: "dark";
-// @media (prefers-color-scheme: light) {
-//     $theme: "light";
-// }
-// @media (prefers-color-scheme: dark) {
-//     $theme: "dark";
-// }
+@media (prefers-color-scheme: light) {
+    $theme: "light";
+}
+@media (prefers-color-scheme: dark) {
+    $theme: "dark";
+}
 
 $color-primary:   #00c3ff;
 $color-secondary: #00ff2a;
