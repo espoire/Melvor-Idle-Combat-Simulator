@@ -68,27 +68,6 @@ const calculations = {
         },
     },
 
-    combatTriangleDamageTakenBonus: {
-        hide: true,
-
-        format(value) {
-            return `${value} %`;
-        },
-
-        calculate(values) {
-            switch(values.combatTriangle) {
-                case '😰':
-                    return 10;
-                case '😐':
-                    return 0;
-                case '😁':
-                    return -15;
-                default:
-                    throw new Error(`Unknown combat triangle pairing: ${values.playerStyle}, ${values.monsterStyle}`);
-            }
-        },
-    },
-
     playerModifiedMaxDamage: {
         hide: true,
 
@@ -113,7 +92,6 @@ const calculations = {
 
         calculate(values) {
             return values.monsterMaxDamage *
-                (1 + values.combatTriangleDamageTakenBonus / 100) *
                 (1 - values.playerModifiedDamageReduction  / 100);
         },
     },
