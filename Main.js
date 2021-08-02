@@ -19,8 +19,6 @@ window.onShowSlayerButtonClick = function () {
 window.onMonsterSelected = onMonsterOptionSelected;
 
 (function onAfterLoad() {
-    console.log("After load");
-
     appendPlayerInputs(document.getElementById('player'));
     appendMonsterOptions(document.getElementById('monster-select'));
     appendMonsterInputs(document.getElementById('monster-inputs'));
