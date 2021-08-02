@@ -1,5 +1,7 @@
-styles/bin/
+styles/bin/*
 .sass-cache/
 *.css.map
 *.sass.map
 *.scss.map
+
+!styles/bin/main.css
