@@ -32,6 +32,12 @@ const INPUTS = {
         value: 17325,
         min: 1,
     },
+
+    autoEat: {
+        label: 'Auto Eat 🦀',
+        value: 216,
+        min: 0,
+    },
 };
 
 /**
@@ -56,7 +62,7 @@ function appendPlayerInput(el, config) {
 
 export function appendInput(el, prefix, config) {
     const labelElement = document.createElement('label');
-    labelElement.innerHTML = camelCaseToTitleCase(config.name);
+    labelElement.innerHTML = config.label || camelCaseToTitleCase(config.name);
     el.appendChild(labelElement);
     appendLineBreak(el);
 

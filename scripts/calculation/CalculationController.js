@@ -34,7 +34,7 @@ export function renderFindMonsterTo(el) {
     );
     for(const monsterInfo of ranking) {
         if(monsterInfo.rank >= 20) break;
-        if(monsterInfo.xpHz < 0.7 * ranking[0].xpHz) break;
+        if(monsterInfo.xpHz < 0.75 * ranking[0].xpHz) break;
 
         appendTableRow(
             el,
