@@ -205,6 +205,22 @@ const calculations = {
             return values.monsterModifiedMaxDamage <= values.playerAutoEat;
         },
     },
+
+    slayerCoins: {
+        hide: true,
+
+        calculate(values) {
+            return Math.floor(values.monsterMaxHp / 10);
+        },
+    },
+
+    slayerCoinHz: {
+        hide: true,
+
+        calculate(values) {
+            return values.slayerCoins * values.killHz;
+        },
+    },
 };
 
 function initialize(calculations) {

@@ -1,6 +1,6 @@
 import { MONSTERS, MONSTERS_BY_NAME } from "../melvor/Monsters.js";
 import { appendOption, setInputValue } from "../util/Element.js";
-import { appendInput } from "./PlayerUI.js";
+import { appendInput } from "./UI.js";
 
 const INPUTS = {
     maxHp: {

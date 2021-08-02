@@ -95,6 +95,4 @@ for(let i = 0; i < SLAYER_TIER_NAMES.length; i++) {
     SLAYER_TIERS.push(slayerTier);
 }
 
-console.log(SLAYER_TIERS);
-
 export { SLAYER_TIER_NAMES, SLAYER_TIERS };

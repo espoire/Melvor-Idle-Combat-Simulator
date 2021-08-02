@@ -1,4 +1,5 @@
 import { MONSTERS } from "../melvor/Monsters.js";
+import { SLAYER_TIERS } from "../melvor/Slayer Tasks.js";
 import { setValuesForMonster } from "../ui/MonsterUI.js";
 import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from "../util/Element.js";
 import calculations from "./Calculation.js";
@@ -52,6 +53,42 @@ export function renderFindMonsterTo(el) {
     }
 }
 
+/**
+ * @param {!HTMLElement} el 
+ */
+export function renderSlayerSummaryTo(el) {
+    const formatted = format(getFormValues());
+    const ranking = rankSlayerMonstersForCoins();
+
+    removeChildren(el);
+    appendTableHead(
+        el,
+        "💀🟢",
+        "💀 XP",
+        `${formatted.playerStyle} XP`,
+        "Monster",
+        "Level",
+        "Style",
+        "Area",
+        "Slayer",
+        "Auto-Eat"
+    );
+    for(const monsterInfo of ranking) {
+        appendTableRow(
+            el,
+            monsterInfo.formattedValues.slayerCoinHz,
+            monsterInfo.formattedValues.slayerXpHz,
+            monsterInfo.formattedValues.xpHz,
+            monsterInfo.monster.name,
+            monsterInfo.monster.combatLevel,
+            STYLE_NAME_TO_EMOJI[monsterInfo.monster.style],
+            monsterInfo.monster.location.name,
+            monsterInfo.monster.slayerLevel || '--',
+            monsterInfo.formattedValues.autoEat
+        );
+    }
+}
+
 function doCalculations() {
     const values = getFormValues();
     return doCalculationsWith(values);
@@ -75,12 +112,48 @@ function rankBestMonsterForXp() {
 
     // Sort descending by `xpHz`
     ranking.sort(
-        (a, b) => b.values.xpHz - a.values.xpHz
+        (a, b) => b.values.slayerCoinHz - a.values.slayerCoinHz
     );
 
     for(let i = 0 ; i < ranking.length; i++)
         ranking[i].rank = i;
 
+    return ranking;
+}
+
+function rankSlayerMonstersForCoins() {
+    const values = getFormValues();
+    const slayerTier = SLAYER_TIERS.find(
+        tier => tier.name == values.optionsSlayerTier
+    );
+
+    if(!slayerTier) {
+        throw new Error(
+            `Unknown slayer tier: ${values.optionsSlayerTier}`
+        );
+    }
+
+    const ranking = [];
+    for(const monster of slayerTier.targetMonsterOptions) {
+        const values = doCalculationsFor(monster);
+        const formatted = format(values);
+
+        ranking.push({
+            monster,
+            values,
+            formattedValues: formatted,
+        });
+    }
+
+    // Sort descending by `slayerCoinHz`
+    ranking.sort( (a, b) =>
+        b.values.slayerCoinHz -
+        a.values.slayerCoinHz
+    );
+
+    for(let i = 0 ; i < ranking.length; i++)
+        ranking[i].rank = i;
+    
     return ranking;
 }
 
@@ -127,6 +200,22 @@ function format(values) {
             value = value.toFixed(1);
 
         if(typeof calculation != 'object' || !calculation.format) {
+            if(key.endsWith('Style')) {
+                switch(value) {
+                    case 'melee':
+                        value = '⚔';
+                        break;
+                    case 'ranged':
+                        value = '🏹';
+                        break;
+                    case 'magic':
+                        value = '🧙‍♂️';
+                        break;
+                    default:
+                        throw new Error(`Unknown style: ${value}`);
+                }
+            }
+
             ret[key] = value;
             continue;
         }

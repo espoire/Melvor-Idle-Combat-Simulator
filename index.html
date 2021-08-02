@@ -26,21 +26,33 @@
 					<div id="monster-inputs"></div>
 				</div>
 			</div>
+
+			<div id="options-wrapper" class="wrapper">
+				<label class="section">⚙ Options</label>
+				<div id="options" class="indent">
+				</div>
+			</div>
 		</div>
 		
-		<div id="buttons-bar" class="marquee debug">
+		<div id="buttons-bar" class="marquee">
 			<button onclick="onCalculateButtonClick();">Calculate</button>
-			<button onclick="onFindMonsterButtonClick();">Find Best Monster for XP</button>
+			<button onclick="onFindMonsterButtonClick();">Find Best Monsters for XP</button>
+			<button onclick="onShowSlayerButtonClick();">Show Slayer Monsters</button>
 		</div>
 
-		<div id="calculate-output" class="wrapper debug" style="display: none;">
+		<div id="calculate-output" class="wrapper" style="display: none;">
 			<label class="section">🖥 Calculations</label>
 			<div id="calculations" class="indent"></div>
 		</div>
 
-		<div id="find-monster-output" class="wrapper debug" style="display: none;">
+		<div id="find-monster-output" class="wrapper" style="display: none;">
 			<label class="section">👑😈 Best Monster for XP</label>
 			<table id="found-monster" class="indent"></table>
+		</div>
+
+		<div id="show-slayer-output" class="wrapper" style="display: none;">
+			<label class="section">💀😈 Slayer Monsters</label>
+			<table id="slayer-table" class="indent"></table>
 		</div>
 	</body>
 </html>

@@ -1,5 +1,6 @@
-import { renderCalculationsTo, renderFindMonsterTo } from "./scripts/calculation/CalculationController.js";
+import { renderCalculationsTo, renderFindMonsterTo, renderSlayerSummaryTo } from "./scripts/calculation/CalculationController.js";
 import appendMonsterOptions, { appendMonsterInputs, onMonsterOptionSelected } from "./scripts/ui/MonsterUI.js";
+import { appendOptionsInputs } from "./scripts/ui/OptionsUI.js";
 import { appendPlayerInputs } from "./scripts/ui/PlayerUI.js";
 
 window.onCalculateButtonClick = function () {
@@ -10,6 +11,10 @@ window.onFindMonsterButtonClick = function () {
     renderFindMonsterTo(document.getElementById('found-monster'));
     document.getElementById('find-monster-output').style.display = 'inline-block';
 }
+window.onShowSlayerButtonClick = function () {
+    renderSlayerSummaryTo(document.getElementById('slayer-table'));
+    document.getElementById('show-slayer-output').style.display = 'inline-block';
+}
 
 window.onMonsterSelected = onMonsterOptionSelected;
 
@@ -19,4 +24,5 @@ window.onMonsterSelected = onMonsterOptionSelected;
     appendPlayerInputs(document.getElementById('player'));
     appendMonsterOptions(document.getElementById('monster-select'));
     appendMonsterInputs(document.getElementById('monster-inputs'));
+    appendOptionsInputs(document.getElementById('options'));
 })();
