@@ -64,6 +64,10 @@ tr {
     }
 }
 
+h1 {
+    margin: 0;
+}
+
 .debug {
     border: 1px solid white;
 }
@@ -82,20 +86,19 @@ tr {
     padding-right: 20px;
 }
 
-.title-bar {
-    h1 {
-        margin: 0;
-    }
-
-    div {
-        text-align: center;
-    }
-
+.vbox {
     display: flex;
     flex-direction: column;
-    align-content: center;
     flex-wrap: wrap;
+}
+
+.center-content {
+    align-content: center;
     align-items: center;
+}
+
+.brighter-background {
+    background-color: vars.$color-white;
 }
 
 .banner {
@@ -106,10 +109,6 @@ tr {
 
     padding-top: 1em;
     padding-bottom: 1em;
-}
-
-.brighter-background {
-    background-color: vars.$color-white;
 }
 
 label.section {

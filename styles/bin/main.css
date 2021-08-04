@@ -43,6 +43,10 @@ tr th, tr td {
   padding-right: 0.5em;
 }
 
+h1 {
+  margin: 0;
+}
+
 .debug {
   border: 1px solid white;
 }
@@ -59,18 +63,19 @@ tr th, tr td {
   padding-right: 20px;
 }
 
-.title-bar {
+.vbox {
   display: flex;
   flex-direction: column;
-  align-content: center;
   flex-wrap: wrap;
+}
+
+.center-content {
+  align-content: center;
   align-items: center;
 }
-.title-bar h1 {
-  margin: 0;
-}
-.title-bar div {
-  text-align: center;
+
+.brighter-background {
+  background-color: black;
 }
 
 .banner {
@@ -80,10 +85,6 @@ tr th, tr td {
 .banner.centered-items {
   display: flex;
   justify-content: center;
-}
-
-.brighter-background {
-  background-color: black;
 }
 
 label.section {
