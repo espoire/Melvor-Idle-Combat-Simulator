@@ -6,6 +6,7 @@
   padding: 14px 16px;
   transition: 0.3s;
   font-size: 17px;
+  font-weight: bold;
 }
 
 .tab-button:hover {
@@ -112,9 +113,6 @@ h1 {
 label.section {
   font-weight: bold;
   font-size: larger;
-}
-label.section ::after {
-  content: none;
 }
 
 #calculate-output #calculations .row {

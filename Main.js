@@ -26,14 +26,20 @@ window.onMonsterSelected = onMonsterOptionSelected;
         parent: 'output',
         tabs: [
             {
-                label: 'Specific Monster',
+                label: '😈 Monsters',
                 element: 'calculate-output',
             }, {
-                label: 'Best Monsters for XP',
+                label: '💎 Loot 🚧⏳',
+                element: 'loot-tab'
+            }, {
+                label: '👑 Best XP',
                 element: 'find-monster-output',
             }, {
-                label: 'Slayer Tiers',
+                label: '💀 Slayer',
                 element: 'show-slayer-output',
+            }, {
+                label: '🐉 Dungeons 🚧⏳',
+                element: 'dungeons-tab'
             }
         ]
     });

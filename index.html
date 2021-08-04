@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Melvor Combat Simulator</title>
+		<title>Melvor Idle Combat Simulator</title>
 
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 		<link rel="stylesheet" href="styles/bin/main.css" />
@@ -12,14 +12,13 @@
 	<body>
 		<div id="page-container">
 			<div id="content-wrap">
-				<div id="header" class="vbox center-content brighter-background" style="margin-bottom: 1em;">
-					<h1>Melvor Combat Simulator</h1>
+				<div id="header" class="vbox center-content brighter-background" style="padding-top: 1em; padding-bottom: 1em;">
+					<h1>Melvor Idle Combat Simulator</h1>
 				</div>
 				
 				<div class="hbox">
 					<div id="input">
-						<div id="player-wrapper" class="wrapper">
-							<label class="section">🙂 Player</label>
+						<div id="player-wrapper" class="wrapper"><label class="section">🙂 Player</label>
 							<div id="player">
 							</div>
 						</div>
@@ -27,8 +26,7 @@
 					
 					<div id="output" style="padding-left: 1em;">
 						<div id="calculate-output">
-							<div id="monster-wrapper" class="wrapper">
-								<label class="section">😈 Monster</label>
+							<div id="monster-wrapper" class="wrapper"><label class="section">😈 Monster</label>
 								<div id="monster">
 								<label>Select a Monster</label>
 								<select id="monster-select" onchange="onMonsterSelected();"></select>
@@ -38,32 +36,44 @@
 							</div>
 						</div>
 						
-						<div class="wrapper">
-							<button onclick="onCalculateButtonClick();">Calculate</button>
+						<div class="wrapper"><button onclick="onCalculateButtonClick();">Calculate</button>
 							<label class="section">🖥 Calculations</label>
 							<div id="calculations""></div>
 						</div>
 					</div>
 					
 					<div id="find-monster-output">
-						<div class="wrapper">
-							<button onclick="onFindMonsterButtonClick();">Find Best Monsters for XP</button>
+						<div class="wrapper"><button onclick="onFindMonsterButtonClick();">Find Best Monsters for XP</button>
 							<label class="section">👑😈 Best Monster for XP</label>
 							<table id="found-monster"></table>
 						</div>
 					</div>
 					
 					<div id="show-slayer-output">
-						<div id="options-wrapper" class="wrapper">
-							<label class="section">⚙ Options</label>
+						<div id="options-wrapper" class="wrapper"><label class="section">⚙ Options</label>
 							<div id="options">
 							</div>
 						</div>
 						
-						<div class="wrapper">
-							<button onclick="onShowSlayerButtonClick();">Show Slayer Monsters</button>
+						<div class="wrapper"><button onclick="onShowSlayerButtonClick();">Show Slayer Monsters</button>
 							<label class="section">💀😈 Slayer Monsters</label>
 							<table id="slayer-table"></table>
+						</div>
+					</div>
+
+					<div id="dungeons-tab">
+						<div class="wrapper"><label class="section">🐉 Dungeons</label>
+							
+							🚧 Under Construction
+							⏳ Coming Soon
+						</div>
+					</div>
+					
+					<div id="loot-tab">
+						<div class="wrapper"><label class="section">💎 Loot</label>
+
+							🚧 Under Construction
+							⏳ Coming Soon
 						</div>
 					</div>
 				</div>
