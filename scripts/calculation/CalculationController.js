@@ -29,13 +29,13 @@ export function renderFindMonsterTo(el) {
     removeChildren(el);
     appendTableHead(
         el,
-        "Xp Hz",
-        "Monster",
-        "Level",
-        "Style",
-        "Area",
-        "Slayer",
-        "Auto-Eat"
+        'Xp Hz',
+        'Monster',
+        'Level',
+        'Style',
+        'Area',
+        'Slayer',
+        'Auto-Eat'
     );
     for(const monsterInfo of ranking) {
         if(monsterInfo.rank >= 20) break;
@@ -64,15 +64,15 @@ export function renderSlayerSummaryTo(el) {
     removeChildren(el);
     appendTableHead(
         el,
-        "💀🟢",
-        "💀 XP",
+        '💀🟢',
+        '💀 XP',
         `${formatted.playerStyle} XP`,
-        "Monster",
-        "Level",
-        "Style",
-        "Area",
-        "Slayer",
-        "Auto-Eat"
+        'Monster',
+        'Level',
+        'Style',
+        'Area',
+        'Slayer',
+        'Auto-Eat'
     );
     for(const monsterInfo of ranking) {
         appendTableRow(
@@ -146,7 +146,19 @@ function rankSlayerMonstersForCoins() {
     for(let i = 0 ; i < ranking.length; i++)
         ranking[i].rank = i;
     
+    decorateSlayerRankingWithAggregateValues(ranking);
+    
     return ranking;
+}
+
+function decorateSlayerRankingWithAggregateValues(ranking) {
+    // TODO left off here
+    //      Calculate expected task length.
+    //      Calculate coins, xp per task.
+    //          Use that to calculate expected coins, xp.
+    //      Figure out how to decide to reroll/extend
+    //          Calculate that per task
+    //      Add reroll/extend recommendation to table.
 }
 
 function doCalculationsFor(monster) {
