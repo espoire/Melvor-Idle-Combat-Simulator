@@ -77,6 +77,9 @@ h1 {
 }
 
 .wrapper {
+    @extend %rounded-border;
+    background-color: vars.$color-panel;
+
     display: inline-block;
     vertical-align: top;
 
@@ -92,6 +95,14 @@ h1 {
     flex-wrap: wrap;
 }
 
+.hbox {
+    display: flex;
+    
+    &.center-content {
+        justify-content: center;
+    }
+}
+
 .center-content {
     align-content: center;
     align-items: center;
@@ -99,16 +110,6 @@ h1 {
 
 .brighter-background {
     background-color: vars.$color-white;
-}
-
-.banner {
-    &.centered-items {
-        display: flex;
-        justify-content: center;
-    }
-
-    padding-top: 1em;
-    padding-bottom: 1em;
 }
 
 label.section {
