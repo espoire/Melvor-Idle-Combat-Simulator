@@ -1,5 +1,6 @@
 @use 'vars';
 @use 'functions';
+@import 'tabpanel';
 
 @mixin message-bubble($color) {
     @extend %rounded-border;
@@ -49,8 +50,13 @@
 
 body {
     margin: 0;
-    color: vars.$color-dark;
-    background-color: vars.$color-light;
+    color: vars.$color-darkest;
+    background-color: vars.$color-lightest;
+}
+
+button {
+    background-color: vars.$color-lightest;
+    color: vars.$color-darkest;
 }
 
 tr {

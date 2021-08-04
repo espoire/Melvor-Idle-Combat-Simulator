@@ -16,10 +16,14 @@ $color-danger:    #dc3545;
 $color-warning:   #ffc107;
 $color-info:      #17a2b8;
 
-$color-light:     #ededed;
-$color-panel:     #dcdcdc;
-$color-muted:     #6c757d;
-$color-dark:      #111;
+$color-lightest:  #eee;
+$color-lighter:   #ddd;
+$color-light:     #ccc;
+$color-panel:     $color-lighter;
+$color-muted:     #808080;
+$color-dark:      #333;
+$color-darker:    #222;
+$color-darkest:   #111;
 
 $color-white:     #fff;
 $color-black:     #000;
@@ -35,10 +39,14 @@ $borderless-theme: false;
     $color-warning: color.adjust($color-warning, $saturation: -50%);
     $color-info:    color.adjust($color-info,    $saturation: -50%);
 
-    $color-light: color.invert($color-light);
-    $color-panel: color.invert($color-panel);
-    $color-muted: color.invert($color-muted);
-    $color-dark:  color.invert($color-dark);
+    $color-lightest: color.invert($color-lightest);
+    $color-lighter:  color.invert($color-lighter);
+    $color-light:    color.invert($color-light);
+    $color-panel:    color.invert($color-panel);
+    $color-muted:    color.invert($color-muted);
+    $color-dark:     color.invert($color-dark);
+    $color-darker:   color.invert($color-darker);
+    $color-darkest:  color.invert($color-darkest);
     
     $color-white: color.invert($color-white);
     $color-black: color.invert($color-black);

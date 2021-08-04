@@ -66,7 +66,7 @@ export default class TabPanel {
             tabsBarDivElement.appendChild(tab.button);
         });
 
-        this.activateTab(this.tabs[0]);
+        this.activateTab(0);
 
         tabPanelWrapperDivElement.appendChild(tabsBarDivElement);
         tabPanelWrapperDivElement.appendChild(tabPanelBodyDivElement);
@@ -74,11 +74,16 @@ export default class TabPanel {
     }
 
     activateTab(tab) {
-        this.tabs.forEach(tab =>
-            tab.element.style.display = 'none'
-        );
+        if(typeof tab == 'number')
+            tab = this.tabs[tab];
+
+        this.tabs.forEach(tab => {
+            tab.element.style.display = 'none';
+            tab.button.className = 'tab-button';
+        });
 
         tab.element.style.display = 'inherit';
+        tab.button.className = 'tab-button active';
     }
 
     static _validateConfig(config) {

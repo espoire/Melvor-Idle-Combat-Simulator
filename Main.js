@@ -6,15 +6,12 @@ import TabPanel from "./scripts/ui/widgets/TabPanel.js";
 
 window.onCalculateButtonClick = function () {
     renderCalculationsTo(document.getElementById('calculations'));
-    // document.getElementById('calculate-output').style.display = 'inline-block';
 };
 window.onFindMonsterButtonClick = function () {
     renderFindMonsterTo(document.getElementById('found-monster'));
-    // document.getElementById('find-monster-output').style.display = 'inline-block';
 }
 window.onShowSlayerButtonClick = function () {
     renderSlayerSummaryTo(document.getElementById('slayer-table'));
-    // document.getElementById('show-slayer-output').style.display = 'inline-block';
 }
 
 window.onMonsterSelected = onMonsterOptionSelected;
@@ -28,9 +25,16 @@ window.onMonsterSelected = onMonsterOptionSelected;
     new TabPanel({
         parent: 'output',
         tabs: [
-            'calculate-output',
-            'find-monster-output',
-            'show-slayer-output'
+            {
+                label: 'Specific Monster',
+                element: 'calculate-output',
+            }, {
+                label: 'Best Monsters for XP',
+                element: 'find-monster-output',
+            }, {
+                label: 'Slayer Tiers',
+                element: 'show-slayer-output',
+            }
         ]
     });
 })();

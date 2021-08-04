@@ -1,0 +1,19 @@
+@use 'vars';
+
+.tab-button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.tab-button:hover {
+    background-color: vars.$color-lighter;
+}
+
+.tab-button.active {
+    background-color: vars.$color-light;
+}
