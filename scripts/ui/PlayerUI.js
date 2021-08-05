@@ -1,24 +1,9 @@
 import { appendInput } from "./UI.js";
 
 const INPUTS = {
-    minDamage: {
-        value: 80,
-        min: 1,
-    },
-
-    maxDamage: {
-        value: 402,
-        min: 1,
-    },
-
-    speed: {
-        value: 2.6,
-        min: 0.1,
-        step: 0.1,
-    },
-
     style: {
         type: 'optionset',
+        class: 'center-options large-icons',
         options: [
             { value: 'melee', display: '⚔' },
             { value: 'ranged', display: '🏹' },
@@ -27,23 +12,64 @@ const INPUTS = {
         value: 'magic',
     },
 
-    accuracy: {
-        value: 17325,
-        min: 1,
-    },
+    offenses: {
+        label: '🪓 Offenses',
+        labelClass: 'top-level-header',
+        type: 'group',
+    
+        damage: {
+            label: '💥 Damage',
+            type: 'group',
 
-    damageReduction: {
-        type: 'percent',
-        value: '20',
-        min: 0,
-        max: 100,
-    },
+            minDamage: {
+                label: 'Min',
+                class: 'two-digit',
+                value: 80,
+                min: 1,
+            },
+        
+            maxDamage: {
+                label: 'Max',
+                class: 'three-digit',
+                value: 402,
+                min: 1,
+            },
+        },
 
-    autoEat: {
-        label: 'Auto Eat 🦀',
-        value: 216,
-        min: 0,
+        speed: {
+            class: 'three-digit',
+            value: 2.6,
+            min: 0.1,
+            step: 0.1,
+        },
+        
+        accuracy: {
+            class: 'six-digit',
+            value: 17325,
+            min: 1,
+        },
     },
+    
+    defenses: {
+        label: '🛡 Defenses',
+        labelClass: 'top-level-header',
+        type: 'group',
+
+        damageReduction: {
+            type: 'percent',
+            class: 'three-digit',
+            value: '20',
+            min: 0,
+            max: 100,
+        },
+    
+        autoEat: {
+            label: 'Auto Eat 🦀',
+            class: 'three-digit',
+            value: 216,
+            min: 0,
+        },
+    }
 };
 
 /**

@@ -53,6 +53,8 @@ export default class TabPanel {
         this.tabs.forEach(tab => {
             tab.element.style.display = 'none';
             tabPanelBodyDivElement.appendChild(tab.element);
+            
+            if(tab.noButton) return;
 
             tab.button = document.createElement('button');
             tab.button.className = 'tab-button';
@@ -79,11 +81,11 @@ export default class TabPanel {
 
         this.tabs.forEach(tab => {
             tab.element.style.display = 'none';
-            tab.button.className = 'tab-button';
+            if(tab.button) tab.button.className = 'tab-button';
         });
 
-        tab.element.style.display = 'inherit';
-        tab.button.className = 'tab-button active';
+        tab.element.style.display = 'inline-block';
+        if(tab.button) tab.button.className = 'tab-button active';
     }
 
     static _validateConfig(config) {

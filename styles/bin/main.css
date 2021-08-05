@@ -71,6 +71,31 @@ h1 {
   margin: 0;
 }
 
+input {
+  font-size: 20px;
+  text-align: center;
+}
+
+.two-digit {
+  width: 22px;
+}
+
+.three-digit {
+  width: 33px;
+}
+
+.four-digit {
+  width: 44px;
+}
+
+.five-digit {
+  width: 55px;
+}
+
+.six-digit {
+  width: 66px;
+}
+
 .debug {
   border: 1px solid white;
 }
@@ -106,13 +131,61 @@ h1 {
   align-items: center;
 }
 
+.bottom-content {
+  align-content: flex-end;
+  align-items: flex-end;
+}
+
+.top-level-header {
+  margin-top: 2em;
+}
+
 .brighter-background {
   background-color: black;
+}
+
+.code {
+  background: #222222;
+  border: 1px solid #333333;
+  color: white;
+  padding: 0.2em;
+  margin: 0 0.2em;
+}
+.code pre {
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 100%;
+  overflow: auto;
+  display: block;
+  word-wrap: break-word;
+  padding: 1em 1.5em;
+  margin-bottom: 1.6em;
+}
+
+select.center-options {
+  text-align-last: center;
+}
+
+.large-icons {
+  font-size: 50px;
 }
 
 label.section {
   font-weight: bold;
   font-size: larger;
+}
+
+.ui-auto-input label {
+  font-weight: bold;
+  font-size: larger;
+}
+.ui-auto-input .hbox > .vbox {
+  padding: 5px 10px 0 10px;
+}
+.ui-auto-input .percent-input-postfix {
+  font-size: 26px;
 }
 
 #calculate-output #calculations .row {
@@ -147,6 +220,19 @@ label.section {
   width: 100%;
   height: 4.5rem;
   /* Footer height */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  /* Firefox */
 }
 
 /*# sourceMappingURL=main.css.map */

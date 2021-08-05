@@ -26,6 +26,9 @@ window.onMonsterSelected = onMonsterOptionSelected;
         parent: 'main-tab-panel',
         tabs: [
             {
+                noButton: true,
+                element: 'intro-page',
+            }, {
                 label: '🙂 Player',
                 element: 'player-wrapper',
             }, {
