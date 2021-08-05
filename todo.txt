@@ -1,0 +1,17 @@
+Intro/landing page
+Instructions/explanation for each page, each wrapper
+
+Aspect ratio
+    Adjust element sizes
+    Allow content below the player wrapper if very narrow
+
+Theme
+    Match to the game more
+
+Redesign the Monster tab; no more inputting stats directly
+
+Auto-update calculated panels on after-changed
+
+Rename "calculations" --> "Combat Stats"
+
+Open external links in new tab/window

@@ -23,9 +23,12 @@ window.onMonsterSelected = onMonsterOptionSelected;
     appendOptionsInputs(document.getElementById('options'));
 
     new TabPanel({
-        parent: 'output',
+        parent: 'main-tab-panel',
         tabs: [
             {
+                label: '🙂 Player',
+                element: 'player-wrapper',
+            }, {
                 label: '😈 Monsters',
                 element: 'calculate-output',
             }, {
