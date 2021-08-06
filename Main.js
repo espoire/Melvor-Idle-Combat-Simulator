@@ -5,7 +5,7 @@ import { appendPlayerInputs } from "./scripts/ui/PlayerUI.js";
 import TabPanel from "./scripts/ui/widgets/TabPanel.js";
 
 window.onCalculateButtonClick = function () {
-    renderCalculationsTo(document.getElementById('calculations'));
+    renderCalculationsTo(document.getElementById('monster-combat-stats-output'));
 };
 window.onFindMonsterButtonClick = function () {
     renderFindMonsterTo(document.getElementById('found-monster'));
@@ -30,19 +30,19 @@ window.onMonsterSelected = onMonsterOptionSelected;
                 element: 'intro-page',
             }, {
                 label: '🙂 Player',
-                element: 'player-wrapper',
+                element: 'player-tab',
             }, {
                 label: '😈 Monsters',
-                element: 'calculate-output',
+                element: 'monster-tab',
             }, {
                 label: '💎 Loot 🚧⏳',
                 element: 'loot-tab'
             }, {
                 label: '👑 Best XP',
-                element: 'find-monster-output',
+                element: 'best-xp-tab',
             }, {
                 label: '💀 Slayer',
-                element: 'show-slayer-output',
+                element: 'slayer-tab',
             }, {
                 label: '🐉 Dungeons 🚧⏳',
                 element: 'dungeons-tab'

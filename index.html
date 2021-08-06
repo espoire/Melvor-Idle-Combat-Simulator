@@ -19,16 +19,17 @@
 				<div id="main-tab-panel">
 					<div id="intro-page" class="wrapper"><label class="section">👋 Welcome</label>
 						
-						Welcome to my Melvor Idle Combat Simulator!
+						Welcome to my <b>📊 Melvor Idle Combat Simulator</b>!
 
-						Here you can get personalized recommendations for which
-						monsters to hunt, based on your current stats. To begin,
-						visit the <b class="code">🙂 Player </b> tab and fill out your stats.
-						Then visit another tab to see personalized stats and
-						recommendation for that topic.
+						Here you can get personalized recommendations for which monsters to hunt, based
+						on your current stats. To begin, visit the <b class="code">🙂 Player </b> tab and fill out your stats.
+						Then visit another tab to see personalized stats and recommendations for that topic.
+
+						<b class="warning">Warning</b>: This calculator does not (yet) account for special attacks!
+						Be careful, as this may affect whether <b>🦀 Auto-Eat</b> will keep you safe or not!
 					</div>
 
-					<div id="player-wrapper" class="wrapper"><label class="section">🙂 Player</label>
+					<div id="player-tab" class="wrapper"><label class="section">🙂 Player</label>
 						
 						Fill out your Melvor Idle character's combat stats here.
 						These will be used to calculate the recommendations on
@@ -37,74 +38,73 @@
 						<div id="player"></div>
 					</div>
 
-					<div id="calculate-output">
+					<div id="monster-tab">
 						<div id="monster-wrapper" class="wrapper"><label class="section">😈 Monster</label>
 							<div id="monster">
-							<label>Select a Monster</label>
-							<select id="monster-select" onchange="onMonsterSelected();"></select>
-							
-							Or input stats directly:
-							<div id="monster-inputs"></div>
-						</div>
-					</div>
-					
-					<div class="wrapper"><button onclick="onCalculateButtonClick();">Calculate</button>
-						<label class="section">🖥 Calculations</label>
-						<div id="calculations""></div>
-					</div>
-				</div>
-				
-				<div id="find-monster-output">
-					<div class="wrapper"><button onclick="onFindMonsterButtonClick();">Find Best Monsters for XP</button>
-						<label class="section">👑😈 Best Monster for XP</label>
-						<table id="found-monster"></table>
-					</div>
-				</div>
-				
-				<div id="show-slayer-output">
-					<div id="options-wrapper" class="wrapper"><label class="section">⚙ Options</label>
-						<div id="options">
-						</div>
-					</div>
-					
-					<div class="wrapper"><button onclick="onShowSlayerButtonClick();">Show Slayer Monsters</button>
-						<label class="section">💀😈 Slayer Monsters</label>
-						<table id="slayer-table"></table>
-					</div>
-				</div>
+								<label>Select a Monster</label>
+								<select id="monster-select" onchange="onMonsterSelected();"></select>
+								
+								Or input stats directly:
+								<div id="monster-inputs"></div>
 
-				<div id="dungeons-tab">
-					<div class="wrapper"><label class="section">🐉 Dungeons</label>
+								<button onclick="onCalculateButtonClick();">Calculate Combat Stats vs. This Monster</button>
+							</div>
+						</div>
 						
-						🚧 Under Construction
-						⏳ Coming Soon
+						<div id="monster-combat-stats-wrapper" class="wrapper"><label class="section">📈 Combat Stats</label>
+						<div id="monster-combat-stats-output"></div></div>
 					</div>
-				</div>
-				
-				<div id="loot-tab">
-					<div class="wrapper"><label class="section">💎 Loot</label>
+					
+					<div id="loot-tab">
+						<div class="wrapper"><label class="section">💎 Loot</label>
 
-						🚧 Under Construction
-						⏳ Coming Soon
+							🚧 Under Construction
+							⏳ Coming Soon
+						</div>
+					</div>
+				
+					<div id="best-xp-tab">
+						<div class="wrapper"><button onclick="onFindMonsterButtonClick();">Find Best Monsters for XP</button>
+							<label class="section">👑 Best Monsters for XP</label>
+						<table id="found-monster"></table></div>
+					</div>
+					
+					<div id="slayer-tab">
+						<div id="options-wrapper" class="wrapper"><label class="section">💀⚙ Slayer Options</label>
+
+							<div id="options"></div>
+							<button onclick="onShowSlayerButtonClick();">Generate Slayer Monsters Table</button>
+						</div>
+						
+						<div class="wrapper"><label class="section">💀😈 Slayer Monsters</label>
+						<table id="slayer-table"></table></div>
+					</div>
+
+					<div id="dungeons-tab">
+						<div class="wrapper"><label class="section">🐉 Dungeons</label>
+							
+							🚧 Under Construction
+							⏳ Coming Soon
+						</div>
 					</div>
 				</div>
-			</div>
 			
-			<div id="footer" class="vbox center-content brighter-background">
-				<div>
-					I am not affiliated with Melvor Idle.
-					This is a fan site.
-				</div>
-				<div>
-					The copyright for Melvor Idle is held by Malcs.
-				</div>
-				<div>
-					Play Melvor Idle on the official site at
-					<a href="https://melvoridle.com/">melvoridle.com</a>.
-				</div>
-				<div>
-					Feedback on this calculator?
-					<a href="mailto:a.pergrossi@gmail.com?subject=Melvor Combat Simulator feedback">Contact me</a>.
+				<div id="footer" class="vbox center-content brighter-background">
+					<div>
+						I am not affiliated with Melvor Idle.
+						This is a fan site.
+					</div>
+					<div>
+						The copyright for Melvor Idle is held by Malcs.
+					</div>
+					<div>
+						Play Melvor Idle on the official site at
+						<a href="https://melvoridle.com/">melvoridle.com</a>.
+					</div>
+					<div>
+						Feedback on this calculator?
+						<a href="mailto:a.pergrossi@gmail.com?subject=Melvor Combat Simulator feedback">Contact me</a>.
+					</div>
 				</div>
 			</div>
 		</div>

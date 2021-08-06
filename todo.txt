@@ -10,6 +10,4 @@ Redesign the Monster tab; no more inputting stats directly
 
 Auto-update calculated panels on after-changed
 
-Rename "calculations" --> "Combat Stats"
-
 Open external links in new tab/window

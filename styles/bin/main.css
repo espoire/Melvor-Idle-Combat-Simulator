@@ -188,17 +188,17 @@ label.section {
   font-size: 26px;
 }
 
-#calculate-output #calculations .row {
+#monster-tab #monster-combat-stats-output .row {
   display: table-row;
 }
-#calculate-output #calculations .row * {
+#monster-tab #monster-combat-stats-output .row * {
   display: table-cell;
 }
-#calculate-output #calculations .row label {
+#monster-tab #monster-combat-stats-output .row label {
   text-align: right;
   padding-right: 1em;
 }
-#calculate-output #calculations .row .value {
+#monster-tab #monster-combat-stats-output .row .value {
   font-size: larger;
   font-weight: bold;
 }
