@@ -91,8 +91,8 @@ export default class TabPanel {
 
     static _validateConfig(config) {
         if (!config.parent || !config.tabs) throw new Error();
-        if (typeof parent != 'string' && ! (parent instanceof HTMLElement))
-            throw new Error();
+        if (typeof config.parent != 'string' && ! (config.parent instanceof HTMLElement))
+            throw new Error(`TabPanel \`parent\` config has unexpected type: ${typeof config.parent}`);
         if (!Array.isArray(config.tabs)) throw new Error();
     }
 
