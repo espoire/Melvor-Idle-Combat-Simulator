@@ -26,23 +26,23 @@ function onAfterLoad() {
                 noButton: true,
                 element: 'intro-page',
             }, {
-                label: '🙂 Player',
+                label: '🙂<br />Player',
                 element: 'player-tab',
             }, {
-                label: '😈 Monsters',
+                label: '😈<br />Monsters',
                 element: 'monster-tab',
                 onShow: recalculateCombatStats,
             }, {
-                label: '💎 Loot 🚧⏳',
+                label: '💎 🚧⏳<br />Loot',
                 element: 'loot-tab',
             }, {
-                label: '👑 Best XP',
+                label: '👑<br />Best XP',
                 element: 'best-xp-tab',
             }, {
-                label: '💀 Slayer',
+                label: '💀<br />Slayer',
                 element: 'slayer-tab',
             }, {
-                label: '🐉 Dungeons 🚧⏳',
+                label: '🐉 🚧⏳<br />Dungeons',
                 element: 'dungeons-tab',
             },
         ],
