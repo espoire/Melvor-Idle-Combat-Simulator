@@ -1,13 +1,10 @@
-import { recalculateCombatStats, renderFindMonsterTo, renderSlayerSummaryTo } from './scripts/calculation/CalculationController.js';
+import { recalculateCombatStats, recalculateBestXpTable, renderSlayerSummaryTo } from './scripts/calculation/CalculationController.js';
 import appendMonsterOptions from './scripts/ui/MonsterUI.js';
 import { appendOptionsInputs } from './scripts/ui/OptionsUI.js';
 import { appendPlayerInputs } from './scripts/ui/PlayerUI.js';
 import TabPanel from './scripts/ui/widgets/TabPanel.js';
 
 window.recalculateCombatStats = recalculateCombatStats;
-window.onFindMonsterButtonClick = function () {
-    renderFindMonsterTo(document.getElementById('found-monster'));
-};
 window.onShowSlayerButtonClick = function () {
     renderSlayerSummaryTo(document.getElementById('slayer-table'));
 };
@@ -38,6 +35,7 @@ function onAfterLoad() {
             }, {
                 label: '👑<br />Best XP',
                 element: 'best-xp-tab',
+                onShow: recalculateBestXpTable,
             }, {
                 label: '💀<br />Slayer',
                 element: 'slayer-tab',

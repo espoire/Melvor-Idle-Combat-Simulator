@@ -8,17 +8,23 @@ import { STYLE_NAME_TO_EMOJI } from './Combat Triangle.js';
 
 const SETTINGS = {
     combatStatsId: 'monster-combat-stats-output',
+    bestXpId: 'found-monster',
 };
 
 export function recalculateCombatStats() {
     const combatStatsEl = document.getElementById(SETTINGS.combatStatsId);
-    renderCalculationsTo(combatStatsEl);
+    renderMonsterCombatStatsTo(combatStatsEl);
+}
+
+export function recalculateBestXpTable() {
+    const bestXpEl = document.getElementById(SETTINGS.bestXpId);
+    renderBestXpTableTo(bestXpEl);
 }
 
 /**
  * @param {!HTMLElement} el
  */
-export function renderCalculationsTo(el) {
+export function renderMonsterCombatStatsTo(el) {
     const values = doCalculations();
     const formatted = format(values);
 
@@ -31,7 +37,7 @@ export function renderCalculationsTo(el) {
 /**
  * @param {!HTMLElement} el
  */
-export function renderFindMonsterTo(el) {
+export function renderBestXpTableTo(el) {
     const ranking = rankBestMonsterForXp();
     const bestXpHz = ranking[0].values.xpHz;
 
