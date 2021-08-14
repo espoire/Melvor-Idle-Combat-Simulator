@@ -86,6 +86,7 @@ export default class TabPanel {
 
         tab.element.style.display = 'inline-block';
         if(tab.button) tab.button.className = 'tab-button active';
+        if(tab.onShow) tab.onShow();
     }
 
     static _validateConfig(config) {

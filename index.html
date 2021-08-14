@@ -42,12 +42,7 @@
 						<div id="monster-wrapper" class="wrapper"><label class="section">😈 Monster</label>
 							<div id="monster">
 								<label>Select a Monster</label>
-								<select id="monster-select" onchange="onMonsterSelected();"></select>
-								
-								Or input stats directly:
-								<div id="monster-inputs"></div>
-
-								<button onclick="onCalculateButtonClick();">Calculate Combat Stats vs. This Monster</button>
+								<select id="monster-select" value="Cow" onchange="recalculateCombatStats();"></select>
 							</div>
 						</div>
 						

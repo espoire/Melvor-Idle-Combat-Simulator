@@ -1,10 +1,19 @@
 import { MONSTERS } from "../melvor/Monsters.js";
 import { SLAYER_TIERS } from "../melvor/Slayer Tasks.js";
-import { setValuesForMonster } from "../ui/MonsterUI.js";
+import { setValuesForMonster, setValuesForMonsterByName } from "../ui/MonsterUI.js";
 import { getSlayerPreferenceSortFunction } from "../ui/OptionsUI.js";
 import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from "../util/Element.js";
 import calculations from "./Calculation.js";
 import { STYLE_NAME_TO_EMOJI } from "./Combat Triangle.js";
+
+const SETTINGS = {
+    combatStatsId: 'monster-combat-stats-output',
+};
+
+export function recalculateCombatStats() {
+    const combatStatsEl = document.getElementById(SETTINGS.combatStatsId);
+    renderCalculationsTo(combatStatsEl);
+}
 
 /**
  * @param {!HTMLElement} el 
@@ -128,6 +137,9 @@ function rankSlayerMonstersForCoins() {
         tier => tier.name == values.optionsSlayerTier
     );
 
+    if(!slayerTier)
+        throw new Error(`No slayer tier matches name: ${values.optionsSlayerTier}`);
+
     const ranking = [];
     for(const monster of slayerTier.targetMonsterOptions) {
         const values = doCalculationsFor(monster);
@@ -189,6 +201,10 @@ function getFormValues() {
 
     for(const select of document.getElementsByTagName('select'))
         ret[select.id] = select.value;
+    
+    const monsterSelectEl = document.getElementById('monster-select');
+    const monsterName = monsterSelectEl.value;
+    setValuesForMonsterByName(ret, monsterName);
 
     return ret;
 }
