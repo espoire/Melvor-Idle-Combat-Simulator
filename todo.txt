@@ -1,11 +1,31 @@
-Instructions/explanation for each page, each wrapper
+Formatting / Usability
 
-Aspect ratio
-    Adjust element sizes
-        Format 😈 Monster 📈 Combat Stats better
-    Test appearance on mobile better
+    Instructions/explanation for each page, each wrapper
 
-Theme
-    Match to the game more
+    Aspect ratio
+        Adjust element sizes
+            Format 😈 Monster 📈 Combat Stats better
+        Test appearance on mobile better
 
-Open external links in new tab/window
+    Theme
+        Match to the game more
+
+    Open external links in new tab/window
+
+
+
+Bug Fixes
+
+    Update combat calculations to match Melvor Idle v0.21 (Offline Combat Update)
+
+
+
+New Features
+
+    Add "has special attack" icon to monster tables
+    
+    Add special attack handling to 🦀 Auto-Eat calculations
+
+    Build 💎 Loot
+
+    Build 🐉 Dungeons
