@@ -31,7 +31,7 @@ function onAfterLoad() {
                 label: '💎 🚧⏳<br />Loot',
                 element: 'loot-tab',
             }, {
-                label: '👑<br />Best XP',
+                label: '👑<br />XP',
                 element: 'best-xp-tab',
                 onShow: recalculateBestXpTable,
             }, {
