@@ -1,18 +1,16 @@
-import { recalculateCombatStats, renderFindMonsterTo, renderSlayerSummaryTo } from "./scripts/calculation/CalculationController.js";
-import appendMonsterOptions from "./scripts/ui/MonsterUI.js";
-import { appendOptionsInputs } from "./scripts/ui/OptionsUI.js";
-import { appendPlayerInputs } from "./scripts/ui/PlayerUI.js";
-import TabPanel from "./scripts/ui/widgets/TabPanel.js";
+import { recalculateCombatStats, renderFindMonsterTo, renderSlayerSummaryTo } from './scripts/calculation/CalculationController.js';
+import appendMonsterOptions from './scripts/ui/MonsterUI.js';
+import { appendOptionsInputs } from './scripts/ui/OptionsUI.js';
+import { appendPlayerInputs } from './scripts/ui/PlayerUI.js';
+import TabPanel from './scripts/ui/widgets/TabPanel.js';
 
-window.recalculateCombatStats = function () {
-
-};
+window.recalculateCombatStats = recalculateCombatStats;
 window.onFindMonsterButtonClick = function () {
     renderFindMonsterTo(document.getElementById('found-monster'));
-}
+};
 window.onShowSlayerButtonClick = function () {
     renderSlayerSummaryTo(document.getElementById('slayer-table'));
-}
+};
 
 onAfterLoad();
 
@@ -36,7 +34,7 @@ function onAfterLoad() {
                 onShow: recalculateCombatStats,
             }, {
                 label: '💎 Loot 🚧⏳',
-                element: 'loot-tab'
+                element: 'loot-tab',
             }, {
                 label: '👑 Best XP',
                 element: 'best-xp-tab',
@@ -45,8 +43,8 @@ function onAfterLoad() {
                 element: 'slayer-tab',
             }, {
                 label: '🐉 Dungeons 🚧⏳',
-                element: 'dungeons-tab'
-            }
-        ]
+                element: 'dungeons-tab',
+            },
+        ],
     });
 }

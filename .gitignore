@@ -5,3 +5,8 @@ styles/bin/*
 *.scss.map
 
 !styles/bin/main.css
+
+node_modules/
+.eslintrc*
+package-lock.json
+package.json

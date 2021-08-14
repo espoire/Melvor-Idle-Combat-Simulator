@@ -1,14 +1,14 @@
-import { camelCaseToTitleCase } from "./String.js";
+import { camelCaseToTitleCase } from './String.js';
 
 /**
- * @param {!HTMLElement} el 
+ * @param {!HTMLElement} el
  */
 export function removeChildren(el) {
     [...el.children].forEach(child => void child.remove());
 }
 
 /**
- * @param {!HTMLElement} el 
+ * @param {!HTMLElement} el
  */
 export function appendLineBreak(el) {
     const lineBreakElement = document.createElement('br');
@@ -16,16 +16,16 @@ export function appendLineBreak(el) {
 }
 
 /**
- * @param {!HTMLElement} el 
+ * @param {!HTMLElement} el
  */
- export function appendOption(el) {
+export function appendOption(el) {
     const optionElement = document.createElement('option');
     el.appendChild(optionElement);
 }
 
 /**
- * @param {string} id 
- * @param {any} value 
+ * @param {string} id
+ * @param {any} value
  */
 export function setInputValue(id, value) {
     const inputEl = document.getElementById(id);
@@ -33,9 +33,9 @@ export function setInputValue(id, value) {
 }
 
 /**
- * @param {!HTMLElement} el 
- * @param {string} key 
- * @param {any} value 
+ * @param {!HTMLElement} el
+ * @param {string} key
+ * @param {any} value
  */
 export function appendKeyValueRow(el, key, value) {
     const rowElement = document.createElement('div');
@@ -43,14 +43,14 @@ export function appendKeyValueRow(el, key, value) {
 
     appendKeyValueRowLabel(rowElement, key);
     appendKeyValueRowValue(rowElement, value);
-    appendLineBreak(rowElement);    
+    appendLineBreak(rowElement);
 
     el.appendChild(rowElement);
 }
 
 /**
- * @param {!HTMLElement} el 
- * @param {string} key 
+ * @param {!HTMLElement} rowEl
+ * @param {string} key
  */
 function appendKeyValueRowLabel(rowEl, key) {
     const labelElement = document.createElement('label');
@@ -61,15 +61,15 @@ function appendKeyValueRowLabel(rowEl, key) {
 }
 
 /**
- * @param {!HTMLElement} rowEl 
- * @param {any} value 
+ * @param {!HTMLElement} rowEl
+ * @param {any} value
  */
 function appendKeyValueRowValue(rowEl, value) {
     const valueElement = document.createElement('span');
     valueElement.className = 'value';
-    
+
     let text = value;
-    if(typeof value == 'number')
+    if (typeof value == 'number')
         text = value.toFixed(1);
     valueElement.innerHTML = text;
 
@@ -77,13 +77,13 @@ function appendKeyValueRowValue(rowEl, value) {
 }
 
 /**
- * @param {!HTMLElement} el 
- * @param  {...string} headers 
+ * @param {!HTMLElement} el
+ * @param  {...string} headers
  */
 export function appendTableHead(el, ...headers) {
     const trElement = document.createElement('tr');
 
-    for(const header of headers) {
+    for (const header of headers) {
         const thElement = document.createElement('th');
         thElement.innerHTML = header;
 
@@ -94,13 +94,13 @@ export function appendTableHead(el, ...headers) {
 }
 
 /**
- * @param {!HTMLElement} el 
- * @param  {...string} data 
+ * @param {!HTMLElement} el
+ * @param  {...string} data
  */
- export function appendTableRow(el, ...data) {
+export function appendTableRow(el, ...data) {
     const trElement = document.createElement('tr');
 
-    for(const datum of data) {
+    for (const datum of data) {
         const tdElement = document.createElement('td');
         tdElement.innerHTML = datum;
 

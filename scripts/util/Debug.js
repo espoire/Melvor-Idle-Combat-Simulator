@@ -1,5 +1,5 @@
 export function expose(key, value) {
-    if(value === undefined) {
+    if (value === undefined) {
         value = key;
         key = 'exposed';
     }

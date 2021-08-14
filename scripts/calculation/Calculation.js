@@ -1,7 +1,7 @@
-import { average } from "../util/Array.js";
-import { randInt } from "../util/Random.js";
-import { capitalize } from "../util/String.js";
-import COMBAT_TRIANGLE from "./Combat Triangle.js";
+import { average } from '../util/Array.js';
+import { randInt } from '../util/Random.js';
+import { capitalize } from '../util/String.js';
+import COMBAT_TRIANGLE from './Combat Triangle.js';
 
 const SIMS = 10000;
 
@@ -14,7 +14,7 @@ const calculations = {
         calculate(values) {
             const monsterEvasion = values[`monster${capitalize(values.playerStyle)}Evasion`];
 
-            if(values.playerAccuracy < monsterEvasion) {
+            if (values.playerAccuracy < monsterEvasion) {
                 return values.playerAccuracy / monsterEvasion * 50;
             } else {
                 return 100 - monsterEvasion / values.playerAccuracy * 50;
@@ -34,7 +34,7 @@ const calculations = {
         },
 
         calculate(values) {
-            switch(values.combatTriangle) {
+            switch (values.combatTriangle) {
                 case '😰':
                     return -15;
                 case '😐':
@@ -55,7 +55,7 @@ const calculations = {
         },
 
         calculate(values) {
-            switch(values.combatTriangle) {
+            switch (values.combatTriangle) {
                 case '😰':
                     return -15;
                 case '😐':
@@ -72,7 +72,8 @@ const calculations = {
         hide: true,
 
         calculate(values) {
-            return values.playerMaxDamage * (1 + values.combatTriangleMaxDamageBonus / 100);
+            return values.playerMaxDamage *
+                (1 + values.combatTriangleMaxDamageBonus / 100);
         },
     },
 
@@ -92,7 +93,7 @@ const calculations = {
 
         calculate(values) {
             return values.monsterMaxDamage *
-                (1 - values.playerModifiedDamageReduction  / 100);
+                (1 - values.playerModifiedDamageReduction / 100);
         },
     },
 
@@ -101,7 +102,8 @@ const calculations = {
     },
 
     playerDps(values) {
-        return values.playerAverageDamagePerHit * values.playerHitChance / 100 / values.playerSpeed;
+        return values.playerAverageDamagePerHit / values.playerSpeed *
+            values.playerHitChance / 100;
     },
 
     naiveHitsToKill: {
@@ -118,16 +120,19 @@ const calculations = {
         calculate(values) {
             const simResults = [];
 
-            for(let i = 0; i < SIMS; i++) {
+            for (let i = 0; i < SIMS; i++) {
                 let hits = 0;
 
                 let monsterHp = values.monsterMaxHp;
-                while(monsterHp > 0) {
-                    let hit = randInt(values.playerMinDamage, values.playerModifiedMaxDamage);
+                while (monsterHp > 0) {
+                    const hit = randInt(
+                        values.playerMinDamage,
+                        values.playerModifiedMaxDamage
+                    );
                     monsterHp -= hit;
                     hits++;
 
-                    if(hits > 100) return 100;
+                    if (hits > 100) return 100;
                 }
 
                 simResults.push(hits);
@@ -175,7 +180,7 @@ const calculations = {
 
     autoEat: {
         format(value) {
-            if(value) return '🦀👍';
+            if (value) return '🦀👍';
             return '💀👎';
         },
 
@@ -204,7 +209,7 @@ const calculations = {
         hide: true,
 
         calculate(values) {
-            if(values.monster && values.monster.alwaysGivesSlayerXp)
+            if (values.monster && values.monster.alwaysGivesSlayerXp)
                 return Math.floor(values.monsterMaxHp / 20);
             return 0;
         },
@@ -228,12 +233,12 @@ const calculations = {
 };
 
 function initialize(calculations) {
-    for(const key in calculations) {
+    for (const key in calculations) {
         const calculation = calculations[key];
 
-        if(typeof calculation == 'function') {
+        if (typeof calculation == 'function') {
             calculations[key] = {
-                calculate: calculation
+                calculate: calculation,
             };
         }
     }

@@ -1,8 +1,8 @@
 export function camelCaseToTitleCase(string) {
     let ret = string[0].toUpperCase();
-    
-    for(const char of string.substring(1)) {
-        if(isUpperCase(char)) {
+
+    for (const char of string.substring(1)) {
+        if (isUpperCase(char)) {
             ret += ` ${char}`;
         } else {
             ret += char;

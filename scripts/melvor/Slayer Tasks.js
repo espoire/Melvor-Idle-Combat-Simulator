@@ -1,43 +1,43 @@
-import { MONSTERS } from "./Monsters.js";
+import { MONSTERS } from './Monsters.js';
 
 const SLAYER = {
     task: {
-        "Easy": {
-            "display": "Easy",
-            "cost": 0,
-            "minLevel": 1,
-            "maxLevel": 49,
-            "slayerLevel": 1
+        'Easy': {
+            'display': 'Easy',
+            'cost': 0,
+            'minLevel': 1,
+            'maxLevel': 49,
+            'slayerLevel': 1,
         },
-        "Normal": {
-            "display": "Normal",
-            "cost": 2000,
-            "minLevel": 50,
-            "maxLevel": 99,
-            "slayerLevel": 25
+        'Normal': {
+            'display': 'Normal',
+            'cost': 2000,
+            'minLevel': 50,
+            'maxLevel': 99,
+            'slayerLevel': 25,
         },
-        "Hard": {
-            "display": "Hard",
-            "cost": 5000,
-            "minLevel": 100,
-            "maxLevel": 199,
-            "slayerLevel": 50
+        'Hard': {
+            'display': 'Hard',
+            'cost': 5000,
+            'minLevel': 100,
+            'maxLevel': 199,
+            'slayerLevel': 50,
         },
-        "Elite": {
-            "display": "Elite",
-            "cost": 15000,
-            "minLevel": 200,
-            "maxLevel": 374,
-            "slayerLevel": 75
+        'Elite': {
+            'display': 'Elite',
+            'cost': 15000,
+            'minLevel': 200,
+            'maxLevel': 374,
+            'slayerLevel': 75,
         },
-        "Master": {
-            "display": "Master",
-            "cost": 25000,
-            "minLevel": 375,
-            "maxLevel": -1,
-            "slayerLevel": 85
-        }
-    }
+        'Master': {
+            'display': 'Master',
+            'cost': 25000,
+            'minLevel': 375,
+            'maxLevel': -1,
+            'slayerLevel': 85,
+        },
+    },
 };
 
 const SLAYER_TIER_NAMES = Object.keys(SLAYER.task);
@@ -78,7 +78,7 @@ class SlayerTier {
             max: 10*(this.id + 1) + 4 * slayerLevel,
         };
     }
-    
+
     getExtensionAmount(slayerLevel) {
         return (this.id + 1) * (10 + Math.floor(slayerLevel / 5));
     }
@@ -86,7 +86,7 @@ class SlayerTier {
 
 // Initialize Slayer stuff
 const SLAYER_TIERS = [];
-for(let i = 0; i < SLAYER_TIER_NAMES.length; i++) {
+for (let i = 0; i < SLAYER_TIER_NAMES.length; i++) {
     const name = SLAYER_TIER_NAMES[i];
     const config = SLAYER.task[name];
     config.id = i;

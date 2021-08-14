@@ -1,10 +1,10 @@
-import { MONSTERS } from "../melvor/Monsters.js";
-import { SLAYER_TIERS } from "../melvor/Slayer Tasks.js";
-import { setValuesForMonster, setValuesForMonsterByName } from "../ui/MonsterUI.js";
-import { getSlayerPreferenceSortFunction } from "../ui/OptionsUI.js";
-import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from "../util/Element.js";
-import calculations from "./Calculation.js";
-import { STYLE_NAME_TO_EMOJI } from "./Combat Triangle.js";
+import { MONSTERS } from '../melvor/Monsters.js';
+import { SLAYER_TIERS } from '../melvor/Slayer Tasks.js';
+import { setValuesForMonster, setValuesForMonsterByName } from '../ui/MonsterUI.js';
+import { getSlayerPreferenceSortFunction } from '../ui/OptionsUI.js';
+import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from '../util/Element.js';
+import calculations from './Calculation.js';
+import { STYLE_NAME_TO_EMOJI } from './Combat Triangle.js';
 
 const SETTINGS = {
     combatStatsId: 'monster-combat-stats-output',
@@ -16,20 +16,20 @@ export function recalculateCombatStats() {
 }
 
 /**
- * @param {!HTMLElement} el 
+ * @param {!HTMLElement} el
  */
 export function renderCalculationsTo(el) {
     const values = doCalculations();
     const formatted = format(values);
 
     removeChildren(el);
-    for(const key in calculations)
-        if(! calculations[key].hide)
+    for (const key in calculations)
+        if (! calculations[key].hide)
             appendKeyValueRow(el, key, formatted[key]);
 }
 
 /**
- * @param {!HTMLElement} el 
+ * @param {!HTMLElement} el
  */
 export function renderFindMonsterTo(el) {
     const ranking = rankBestMonsterForXp();
@@ -44,11 +44,11 @@ export function renderFindMonsterTo(el) {
         'Style',
         'Area',
         'Slayer',
-        'Auto-Eat'
+        'Auto-Eat',
     );
-    for(const monsterInfo of ranking) {
-        if(monsterInfo.rank >= 20) break;
-        if(monsterInfo.values.xpHz < 0.75 * bestXpHz) break;
+    for (const monsterInfo of ranking) {
+        if (monsterInfo.rank >= 20) break;
+        if (monsterInfo.values.xpHz < 0.75 * bestXpHz) break;
 
         appendTableRow(
             el,
@@ -58,13 +58,13 @@ export function renderFindMonsterTo(el) {
             STYLE_NAME_TO_EMOJI[monsterInfo.monster.style],
             monsterInfo.monster.location.name,
             monsterInfo.monster.slayerLevel || '--',
-            monsterInfo.formattedValues.autoEat
+            monsterInfo.formattedValues.autoEat,
         );
     }
 }
 
 /**
- * @param {!HTMLElement} el 
+ * @param {!HTMLElement} el
  */
 export function renderSlayerSummaryTo(el) {
     const formatted = format(getFormValues());
@@ -81,9 +81,9 @@ export function renderSlayerSummaryTo(el) {
         'Style',
         'Area',
         'Slayer',
-        'Auto-Eat'
+        'Auto-Eat',
     );
-    for(const monsterInfo of ranking) {
+    for (const monsterInfo of ranking) {
         appendTableRow(
             el,
             monsterInfo.formattedValues.slayerCoinHz,
@@ -94,7 +94,7 @@ export function renderSlayerSummaryTo(el) {
             STYLE_NAME_TO_EMOJI[monsterInfo.monster.style],
             monsterInfo.monster.location.name,
             monsterInfo.monster.slayerLevel || '--',
-            monsterInfo.formattedValues.autoEat
+            monsterInfo.formattedValues.autoEat,
         );
     }
 }
@@ -107,8 +107,8 @@ function doCalculations() {
 function rankBestMonsterForXp() {
     const ranking = [];
 
-    for(const monster of MONSTERS) {
-        if(! monster.includeInSearch) continue;
+    for (const monster of MONSTERS) {
+        if (! monster.includeInSearch) continue;
 
         const values = doCalculationsFor(monster);
         const formatted = format(values);
@@ -122,10 +122,10 @@ function rankBestMonsterForXp() {
 
     // Sort descending by `xpHz`
     ranking.sort(
-        (a, b) => b.values.slayerCoinHz - a.values.slayerCoinHz
+        (a, b) => b.values.slayerCoinHz - a.values.slayerCoinHz,
     );
 
-    for(let i = 0 ; i < ranking.length; i++)
+    for (let i = 0; i < ranking.length; i++)
         ranking[i].rank = i;
 
     return ranking;
@@ -134,14 +134,14 @@ function rankBestMonsterForXp() {
 function rankSlayerMonstersForCoins() {
     const values = getFormValues();
     const slayerTier = SLAYER_TIERS.find(
-        tier => tier.name == values.optionsSlayerTier
+        tier => tier.name == values.optionsSlayerTier,
     );
 
-    if(!slayerTier)
+    if (!slayerTier)
         throw new Error(`No slayer tier matches name: ${values.optionsSlayerTier}`);
 
     const ranking = [];
-    for(const monster of slayerTier.targetMonsterOptions) {
+    for (const monster of slayerTier.targetMonsterOptions) {
         const values = doCalculationsFor(monster);
         const formatted = format(values);
 
@@ -155,11 +155,11 @@ function rankSlayerMonstersForCoins() {
     const sortFn = getSlayerPreferenceSortFunction(values.optionsSlayerPreference);
     ranking.sort(sortFn);
 
-    for(let i = 0 ; i < ranking.length; i++)
+    for (let i = 0; i < ranking.length; i++)
         ranking[i].rank = i;
-    
+
     decorateSlayerRankingWithAggregateValues(ranking);
-    
+
     return ranking;
 }
 
@@ -180,28 +180,28 @@ function doCalculationsFor(monster) {
 }
 
 function doCalculationsWith(values) {
-    for(const key in calculations)
+    for (const key in calculations)
         values[key] = calculations[key].calculate(values);
-    
+
     return values;
 }
 
 function getFormValues() {
     const ret = {};
 
-    for(const input of document.getElementsByTagName('input')) {
+    for (const input of document.getElementsByTagName('input')) {
         let value = input.value; // Always a `string` type by default.
 
-        if(input.type == 'number') {
+        if (input.type == 'number') {
             value = Number(value);
         }
 
         ret[input.id] = value;
     }
 
-    for(const select of document.getElementsByTagName('select'))
+    for (const select of document.getElementsByTagName('select'))
         ret[select.id] = select.value;
-    
+
     const monsterSelectEl = document.getElementById('monster-select');
     const monsterName = monsterSelectEl.value;
     setValuesForMonsterByName(ret, monsterName);
@@ -212,16 +212,16 @@ function getFormValues() {
 function format(values) {
     const ret = {};
 
-    for(const key in values) {
+    for (const key in values) {
         let value = values[key];
         const calculation = calculations[key];
 
-        if(typeof value == 'number')
+        if (typeof value == 'number')
             value = value.toFixed(1);
 
-        if(typeof calculation != 'object' || !calculation.format) {
-            if(key.endsWith('Style')) {
-                switch(value) {
+        if (typeof calculation != 'object' || !calculation.format) {
+            if (key.endsWith('Style')) {
+                switch (value) {
                     case 'melee':
                         value = '⚔';
                         break;

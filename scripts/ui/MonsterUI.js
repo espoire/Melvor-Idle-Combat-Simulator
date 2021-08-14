@@ -1,22 +1,22 @@
-import { MONSTERS, MONSTERS_BY_NAME } from "../melvor/Monsters.js";
-import { appendOption } from "../util/Element.js";
+import { MONSTERS, MONSTERS_BY_NAME } from '../melvor/Monsters.js';
+import { appendOption } from '../util/Element.js';
 
 export default function appendMonsterOptions(el) {
     appendOption(el);
-    for(const monster of MONSTERS)
+    for (const monster of MONSTERS)
         appendMonsterOption(el, monster);
 }
 
 function appendMonsterOption(el, monster) {
     const optionEl = document.createElement('option');
-    
-    if(monster) {
+
+    if (monster) {
         optionEl.value = monster.name;
         optionEl.innerHTML = monster.toString();
     }
 
     el.appendChild(optionEl);
-    el.value = "Cow";
+    el.value = 'Cow';
 }
 
 export function setValuesForMonsterByName(values, monsterName) {
@@ -24,7 +24,7 @@ export function setValuesForMonsterByName(values, monsterName) {
 }
 
 export function setValuesForMonster(values, monster) {
-    if(!monster) return;
+    if (!monster) return;
 
     values.monster = monster;
 

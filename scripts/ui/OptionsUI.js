@@ -1,5 +1,5 @@
-import { SLAYER_TIER_NAMES } from "../melvor/Slayer Tasks.js";
-import { appendInput } from "./UI.js";
+import { SLAYER_TIER_NAMES } from '../melvor/Slayer Tasks.js';
+import { appendInput } from './UI.js';
 
 const INPUTS = {
     slayerTier: {
@@ -20,10 +20,10 @@ const INPUTS = {
 };
 
 /**
- * @param {!HTMLElement} el 
+ * @param {!HTMLElement} el
  */
 export function appendOptionsInputs(el) {
-    for(const key in INPUTS) {
+    for (const key in INPUTS) {
         const config = INPUTS[key];
         config.name = key;
 
@@ -32,8 +32,8 @@ export function appendOptionsInputs(el) {
 }
 
 /**
- * @param {!HTMLElement} el 
- * @param {object} config 
+ * @param {!HTMLElement} el
+ * @param {object} config
  */
 function appendOptionsInput(el, config) {
     appendInput(el, 'options', config);
@@ -63,6 +63,6 @@ export function getSlayerPreferenceSortFunction(preference) {
             );
 
         default:
-            throw new Error(`Unknown slayer preference: ${values.optionsSlayerPreference}`);
+            throw new Error(`Unknown slayer preference: ${preference}`);
     }
 }

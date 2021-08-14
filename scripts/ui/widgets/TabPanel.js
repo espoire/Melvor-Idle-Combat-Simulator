@@ -14,7 +14,7 @@
 
 export default class TabPanel {
     /**
-     * 
+     *
      * @param {object} config
      * @param {(string | !HTMLElement)} config.parent
      * @param {(string | !HTMLElement | { label: string, element: (string | !HTMLElement)})[]} config.tabs
@@ -27,15 +27,15 @@ export default class TabPanel {
         this.tabs = config.tabs.map(tab => {
             tab = TabPanel._getHtmlElementReference(tab);
 
-            if(tab instanceof HTMLElement)
+            if (tab instanceof HTMLElement)
                 return {element: tab};
 
             tab.element = TabPanel._getHtmlElementReference(tab.element);
             return tab;
         });
         this.tabs.forEach(tab =>
-            tab.label = tab.label || tab.element.id
-        )
+            tab.label = tab.label || tab.element.id,
+        );
 
         this.render();
     }
@@ -53,8 +53,8 @@ export default class TabPanel {
         this.tabs.forEach(tab => {
             tab.element.style.display = 'none';
             tabPanelBodyDivElement.appendChild(tab.element);
-            
-            if(tab.noButton) return;
+
+            if (tab.noButton) return;
 
             tab.button = document.createElement('button');
             tab.button.className = 'tab-button';
@@ -76,27 +76,28 @@ export default class TabPanel {
     }
 
     activateTab(tab) {
-        if(typeof tab == 'number')
+        if (typeof tab == 'number')
             tab = this.tabs[tab];
 
         this.tabs.forEach(tab => {
             tab.element.style.display = 'none';
-            if(tab.button) tab.button.className = 'tab-button';
+            if (tab.button) tab.button.className = 'tab-button';
         });
 
         tab.element.style.display = 'inline-block';
-        if(tab.button) tab.button.className = 'tab-button active';
-        if(tab.onShow) tab.onShow();
+        if (tab.button) tab.button.className = 'tab-button active';
+        if (tab.onShow) tab.onShow();
     }
 
     static _validateConfig(config) {
-        if(!config.parent || !config.tabs) throw new Error();
-        if(typeof parent != 'string' && ! parent instanceof HTMLElement) throw new Error();
-        if(!Array.isArray(config.tabs)) throw new Error();
+        if (!config.parent || !config.tabs) throw new Error();
+        if (typeof parent != 'string' && ! (parent instanceof HTMLElement))
+            throw new Error();
+        if (!Array.isArray(config.tabs)) throw new Error();
     }
 
     static _getHtmlElementReference(element) {
-        if(typeof element == 'string')
+        if (typeof element == 'string')
             return document.getElementById(element);
         return element;
     }
