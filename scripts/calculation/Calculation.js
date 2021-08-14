@@ -3,7 +3,7 @@ import { randInt } from '../util/Random.js';
 import { capitalize } from '../util/String.js';
 import COMBAT_TRIANGLE from './Combat Triangle.js';
 
-const SIMS = 10000;
+const BASE_SIMULATION_KILLS = 10000;
 
 const calculations = {
     playerHitChance: {
@@ -120,7 +120,9 @@ const calculations = {
         calculate(values) {
             const simResults = [];
 
-            for (let i = 0; i < SIMS; i++) {
+            const sims = BASE_SIMULATION_KILLS * (values.simulationFidelity || 1);
+
+            for (let i = 0; i < sims; i++) {
                 let hits = 0;
 
                 let monsterHp = values.monsterMaxHp;

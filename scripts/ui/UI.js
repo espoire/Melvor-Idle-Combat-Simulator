@@ -57,6 +57,10 @@ export function appendInput(el, prefix, config) {
                 selectElement.appendChild(optionElement);
             }
 
+            if (config.onChange) selectElement.onchange = function () {
+                window[config.onChange]();
+            };
+
             elementWrapper.appendChild(selectElement);
             break;
         }
@@ -70,6 +74,9 @@ export function appendInput(el, prefix, config) {
             if (config.min) inputElement.min = config.min;
             if (config.max) inputElement.max = config.max;
             if (config.step) inputElement.step = config.step;
+            if (config.onChange) inputElement.onchange = function () {
+                window[config.onChange]();
+            };
 
             if (config.type == 'percent') {
                 const inputWrapper = document.createElement('div');

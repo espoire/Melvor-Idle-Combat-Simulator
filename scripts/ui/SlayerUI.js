@@ -6,6 +6,7 @@ const INPUTS = {
         type: 'optionset',
         options: SLAYER_TIER_NAMES,
         value: SLAYER_TIER_NAMES[1],
+        onChange: 'recalculateSlayerTable',
     },
 
     slayerPreference: {
@@ -16,6 +17,7 @@ const INPUTS = {
             { value: 'totalxp', display: '💀⚔🏹🧙‍♂️ XP' },
         ],
         value: 'coins',
+        onChange: 'recalculateSlayerTable',
     },
 };
 

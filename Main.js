@@ -1,13 +1,11 @@
-import { recalculateCombatStats, recalculateBestXpTable, renderSlayerSummaryTo } from './scripts/calculation/CalculationController.js';
+import { recalculateCombatStats, recalculateBestXpTable, recalculateSlayerTable } from './scripts/calculation/CalculationController.js';
 import appendMonsterOptions from './scripts/ui/MonsterUI.js';
-import { appendOptionsInputs } from './scripts/ui/OptionsUI.js';
+import { appendOptionsInputs } from './scripts/ui/SlayerUI.js';
 import { appendPlayerInputs } from './scripts/ui/PlayerUI.js';
 import TabPanel from './scripts/ui/widgets/TabPanel.js';
 
 window.recalculateCombatStats = recalculateCombatStats;
-window.onShowSlayerButtonClick = function () {
-    renderSlayerSummaryTo(document.getElementById('slayer-table'));
-};
+window.recalculateSlayerTable = recalculateSlayerTable;
 
 onAfterLoad();
 
@@ -39,6 +37,7 @@ function onAfterLoad() {
             }, {
                 label: '💀<br />Slayer',
                 element: 'slayer-tab',
+                onShow: recalculateSlayerTable,
             }, {
                 label: '🐉 🚧⏳<br />Dungeons',
                 element: 'dungeons-tab',

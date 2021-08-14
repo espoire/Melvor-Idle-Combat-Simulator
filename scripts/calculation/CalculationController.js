@@ -1,14 +1,15 @@
 import { MONSTERS } from '../melvor/Monsters.js';
 import { SLAYER_TIERS } from '../melvor/Slayer Tasks.js';
 import { setValuesForMonster, setValuesForMonsterByName } from '../ui/MonsterUI.js';
-import { getSlayerPreferenceSortFunction } from '../ui/OptionsUI.js';
+import { getSlayerPreferenceSortFunction } from '../ui/SlayerUI.js';
 import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from '../util/Element.js';
 import calculations from './Calculation.js';
 import { STYLE_NAME_TO_EMOJI } from './Combat Triangle.js';
 
 const SETTINGS = {
     combatStatsId: 'monster-combat-stats-output',
-    bestXpId: 'found-monster',
+    bestXpTableId: 'best-xp-table',
+    slayerTableId: 'slayer-table',
 };
 
 export function recalculateCombatStats() {
@@ -17,8 +18,13 @@ export function recalculateCombatStats() {
 }
 
 export function recalculateBestXpTable() {
-    const bestXpEl = document.getElementById(SETTINGS.bestXpId);
-    renderBestXpTableTo(bestXpEl);
+    const bestXpTableEl = document.getElementById(SETTINGS.bestXpTableId);
+    renderBestXpTableTo(bestXpTableEl);
+}
+
+export function recalculateSlayerTable() {
+    const slayerTableEl = document.getElementById(SETTINGS.slayerTableId);
+    renderSlayerTableTo(slayerTableEl);
 }
 
 /**
@@ -38,7 +44,7 @@ export function renderMonsterCombatStatsTo(el) {
  * @param {!HTMLElement} el
  */
 export function renderBestXpTableTo(el) {
-    const ranking = rankBestMonsterForXp();
+    const ranking = rankBestMonstersForXp();
     const bestXpHz = ranking[0].values.xpHz;
 
     removeChildren(el);
@@ -72,9 +78,9 @@ export function renderBestXpTableTo(el) {
 /**
  * @param {!HTMLElement} el
  */
-export function renderSlayerSummaryTo(el) {
+export function renderSlayerTableTo(el) {
     const formatted = format(getFormValues());
-    const ranking = rankSlayerMonstersForCoins();
+    const ranking = rankSlayerMonsters();
 
     removeChildren(el);
     appendTableHead(
@@ -110,13 +116,13 @@ function doCalculations() {
     return doCalculationsWith(values);
 }
 
-function rankBestMonsterForXp() {
+function rankBestMonstersForXp() {
     const ranking = [];
 
     for (const monster of MONSTERS) {
         if (! monster.includeInSearch) continue;
 
-        const values = doCalculationsFor(monster);
+        const values = doCalculationsFor(monster, 0.2);
         const formatted = format(values);
 
         ranking.push({
@@ -137,7 +143,7 @@ function rankBestMonsterForXp() {
     return ranking;
 }
 
-function rankSlayerMonstersForCoins() {
+function rankSlayerMonsters() {
     const values = getFormValues();
     const slayerTier = SLAYER_TIERS.find(
         tier => tier.name == values.optionsSlayerTier,
@@ -179,9 +185,10 @@ function decorateSlayerRankingWithAggregateValues(ranking) {
     //      Add reroll/extend recommendation to table.
 }
 
-function doCalculationsFor(monster) {
+function doCalculationsFor(monster, simulationFidelity) {
     const values = getFormValues();
     setValuesForMonster(values, monster);
+    values.simulationFidelity = simulationFidelity;
     return doCalculationsWith(values);
 }
 
