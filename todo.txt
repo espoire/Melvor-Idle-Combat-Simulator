@@ -6,8 +6,6 @@ Aspect ratio
 Theme
     Match to the game more
 
-Redesign the Monster tab; no more inputting stats directly
-
 Auto-update calculated panels on after-changed
 
 Open external links in new tab/window
