@@ -2,10 +2,10 @@ Instructions/explanation for each page, each wrapper
 
 Aspect ratio
     Adjust element sizes
+        Format 😈 Monster 📈 Combat Stats better
+    Test appearance on mobile better
 
 Theme
     Match to the game more
-
-Auto-update calculated panels on after-changed
 
 Open external links in new tab/window
