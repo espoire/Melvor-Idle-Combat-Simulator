@@ -3,10 +3,48 @@ import { randInt } from '../util/Random.js';
 import { capitalize } from '../util/String.js';
 import COMBAT_TRIANGLE from './Combat Triangle.js';
 import format from '../util/Format.js';
+import { GAME_MODES } from '../ui/GameModeUI.js';
 
 const BASE_SIMULATION_KILLS = 10000;
 
 const calculations = {
+    gameMode: {
+        hide: true,
+
+        calculate(values) {
+            const gameMode = values['game-mode'];
+
+            let hpMultiplier = 1;
+            let damagePenalty = -15;
+            let meleeDrPenalty = -50;
+            let rangedDrPenalty = -5;
+            let magicDrPenalty = -15;
+
+            if (gameMode == GAME_MODES.adventure) {
+                hpMultiplier = 10;
+            }
+
+            if (gameMode == GAME_MODES.adventure || gameMode == GAME_MODES.hardcore) {
+                damagePenalty = -25;
+                meleeDrPenalty = -75;
+                rangedDrPenalty = -25;
+                magicDrPenalty = -25;
+            }
+
+            return {
+                hpMultiplier,
+                combatTriangle: {
+                    damage: damagePenalty,
+                    dr: {
+                        melee: meleeDrPenalty,
+                        ranged: rangedDrPenalty,
+                        magic: magicDrPenalty,
+                    },
+                },
+            };
+        },
+    },
+
     playerHitChance: {
         format: format.percent,
 
@@ -25,7 +63,7 @@ const calculations = {
         return COMBAT_TRIANGLE[values.playerStyle][values.monsterStyle];
     },
 
-    combatTriangleMaxDamageBonus: {
+    combatTriangleDamageBonus: {
         hide: true,
 
         format(value) {
@@ -35,11 +73,14 @@ const calculations = {
         calculate(values) {
             switch (values.combatTriangle) {
                 case '😰':
-                    return -15;
+                    return values.gameMode.combatTriangle.damage;
+
                 case '😐':
                     return 0;
+
                 case '😁':
                     return 10;
+
                 default:
                     throw new Error(`Unknown combat triangle pairing: ${values.playerStyle}, ${values.monsterStyle}`);
             }
@@ -55,24 +96,42 @@ const calculations = {
 
         calculate(values) {
             switch (values.combatTriangle) {
-                case '😰':
-                    return -15;
+                case '😰': {
+                    const style = values.playerStyle;
+                    return values.gameMode.combatTriangle.dr[style];
+                }
+
                 case '😐':
                     return 0;
+
                 case '😁':
                     return 25;
+
                 default:
                     throw new Error(`Unknown combat triangle pairing: ${values.playerStyle}, ${values.monsterStyle}`);
             }
         },
     },
 
-    playerModifiedMaxDamage: {
+    playerModifiedMinDamage: {
         hide: true,
 
         calculate(values) {
-            return values.playerMaxDamage *
-                (1 + values.combatTriangleMaxDamageBonus / 100);
+            return 
+        },
+    },
+
+    playerModifiedDamage: {
+        hide: true,
+
+        calculate(values) {
+            const multiplier = (1 + values.combatTriangleDamageBonus / 100) *
+                values.gameMode.hpMultiplier;
+
+            return {
+                min: values.playerMinDamage * multiplier,
+                max: values.playerMaxDamage * multiplier,
+            };
         },
     },
 
@@ -92,12 +151,13 @@ const calculations = {
 
         calculate(values) {
             return values.monsterMaxDamage *
-                (1 - values.playerModifiedDamageReduction / 100);
+                (1 - values.playerModifiedDamageReduction / 100) *
+                values.gameMode.hpMultiplier;
         },
     },
 
     playerAverageDamagePerHit(values) {
-        return (values.playerMinDamage + values.playerModifiedMaxDamage) / 2;
+        return (values.playerModifiedDamage.min + values.playerModifiedDamage.max) / 2;
     },
 
     playerDps(values) {
@@ -127,8 +187,8 @@ const calculations = {
                 let monsterHp = values.monsterMaxHp;
                 while (monsterHp > 0) {
                     const hit = randInt(
-                        values.playerMinDamage,
-                        values.playerModifiedMaxDamage
+                        values.playerModifiedDamage.min,
+                        values.playerModifiedDamage.max
                     );
                     monsterHp -= hit;
                     hits++;
@@ -301,18 +361,12 @@ const calculations = {
     },
 };
 
-function initialize(calculations) {
-    for (const key in calculations) {
-        const calculation = calculations[key];
-
-        if (typeof calculation == 'function') {
-            calculations[key] = {
-                calculate: calculation,
-            };
-        }
-    }
-}
-
 initialize(calculations);
 
 export default calculations;
+
+function initialize(calculations) {
+    for (const key in calculations)
+        if (typeof calculations[key] == 'function')
+            calculations[key] = { calculate: calculations[key] };
+}

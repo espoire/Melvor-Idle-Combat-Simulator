@@ -42,13 +42,41 @@
 						Be careful, as this may affect whether <b>🦀 Auto-Eat</b> will keep you safe or not!
 					</div>
 
-					<div id="player-tab" class="wrapper"><label class="section">🙂 Player</label>
-						
-						Fill out your Melvor Idle character's combat stats here.
-						These will be used to calculate the recommendations on
-						the other tabs.
+					<div id="player-tab">
+						<div class="wrapper"><label class="section">🙂 Player</label>
+							
+							Fill out your Melvor Idle character's combat stats here.
+							These will be used to calculate the recommendations on
+							the other tabs.
 
-						<div id="player"></div>
+						<div id="player"></div></div>
+
+						<div class="wrapper"><label class="section">🎮 Game Mode</label>
+
+							Select your game mode.
+							This will influence the combat simulations.
+
+							<select id="game-mode" value="normal" onchange="displayGameModeInfo();">
+								<option value="normal">Normal</option>
+								<option value="adventure">🧭 Adventure</option>
+								<option value="hardcore">💀 Hardcore</option>
+							</select>
+	
+							<div id="game-mode-info-normal"><b>Normal</b> mode is the default game mode.
+
+							<div class="wrapper">No modifiers.</div></div><div id="game-mode-info-adventure" style="display: none;"><b>🧭 Adventure</b> mode is a version of the game
+								in which players start with only a few skills and
+								must work to unlock others.
+			
+							<div class="wrapper">😰 Combat triangle penalties are increased.
+			
+							💚💥🦀 Combat numbers are increased.</div></div><div id="game-mode-info-hardcore" style="display: none;"><b>💀 Hardcore</b> mode is a more challenging
+								version of the game with perma-death.
+			
+							<div class="wrapper">😰 Combat triangle penalties are increased.
+							
+							<div class="wrapper">💔 HP does not regenerate.
+						(⏳ Coming Soon)</div></div></div></div>
 					</div>
 
 					<div id="monster-tab">

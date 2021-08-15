@@ -2,12 +2,14 @@ import { recalculateCombatStats, recalculateBestXpTable, recalculateSlayerTable,
 import appendMonsterOptions from './scripts/ui/MonsterUI.js';
 import { appendSlayerInputs } from './scripts/ui/SlayerUI.js';
 import { appendPlayerInputs } from './scripts/ui/PlayerUI.js';
+import { displayGameModeInfo } from './scripts/ui/GameModeUI.js';
 import appendItemOptions from './scripts/ui/LootUI.js';
 import TabPanel from './scripts/ui/widgets/TabPanel.js';
 
 window.recalculateCombatStats = recalculateCombatStats;
 window.recalculateSlayerTable = recalculateSlayerTable;
 window.recalculateLootTable = recalculateLootTable;
+window.displayGameModeInfo = displayGameModeInfo;
 
 onAfterLoad();
 

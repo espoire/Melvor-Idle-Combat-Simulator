@@ -76,6 +76,10 @@ input {
   text-align: center;
 }
 
+select {
+  font-size: 20px;
+}
+
 .two-digit {
   width: 22px;
 }
@@ -111,6 +115,12 @@ input {
   white-space: pre-line;
   padding-left: 20px;
   padding-right: 20px;
+}
+.wrapper .wrapper {
+  background-color: #111111;
+}
+.wrapper .wrapper .wrapper {
+  background-color: #222222;
 }
 
 .vbox {
