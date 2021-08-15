@@ -113,14 +113,6 @@ const calculations = {
         },
     },
 
-    playerModifiedMinDamage: {
-        hide: true,
-
-        calculate(values) {
-            return 
-        },
-    },
-
     playerModifiedDamage: {
         hide: true,
 
