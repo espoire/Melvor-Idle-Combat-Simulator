@@ -35,12 +35,14 @@ New Features
     Add special attack handling to 🦀 Auto-Eat calculations
 
     Build 💎 Loot
-        Fix / hide dungeon-only monsters and loot?
+        Add wiki link
         Filter / search for items better
         Add loot table to 😈 Monster
             Make loot table item names a hyperlink to the 💎 Loot page
         Make monster names a hyperlink to the 😈 Monster page
+        Add 💍 Aorphet's Ring (b)
 
     Build 🐉 Dungeons
+        Filter dungeon-only monsters out of the monsters page dropdown
 
     Add Adventure/Hardcore combat differences support (and setting on Player tab)

@@ -8,8 +8,9 @@ function buildItemsFromCombatArray() {
     let ret = [];
 
     for (const monster of MONSTERS)
-        for (const loot of monster.loot)
-            ret.push(loot.item);
+        if (monster.includeInSearch)
+            for (const loot of monster.loot)
+                ret.push(loot.item);
 
     ret = unique(ret);
     ret.sort((a, b) => sort.alphabetize(a.name, b.name));
