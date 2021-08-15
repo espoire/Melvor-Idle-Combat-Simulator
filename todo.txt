@@ -30,8 +30,6 @@ Bug Fixes
 
 New Features
 
-    Add Adventure/Hardcore combat differences support (and setting on Player tab)
-
     Add "has special attack" icon to monster tables
     
     Add special attack handling to 🦀 Auto-Eat calculations
@@ -42,6 +40,7 @@ New Features
         Add loot table to 😈 Monster
             Make loot table item names a hyperlink to the 💎 Loot page
         Make monster names a hyperlink to the 😈 Monster page
+        Add 🦴 Bones (and similar)
         Add 💰 GP
         Add 💍 Aorphet's Ring (b)
 
