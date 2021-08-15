@@ -117,8 +117,7 @@ const calculations = {
         hide: true,
 
         calculate(values) {
-            const multiplier = (1 + values.combatTriangleDamageBonus / 100) *
-                values.gameMode.hpMultiplier;
+            const multiplier = (1 + values.combatTriangleDamageBonus / 100);
 
             return {
                 min: values.playerMinDamage * multiplier,
@@ -148,6 +147,14 @@ const calculations = {
         },
     },
 
+    monsterModifiedMaxHp: {
+        hide: true,
+
+        calculate(values) {
+            return values.monsterMaxHp * values.gameMode.hpMultiplier;
+        },
+    },
+
     playerAverageDamagePerHit(values) {
         return (values.playerModifiedDamage.min + values.playerModifiedDamage.max) / 2;
     },
@@ -161,7 +168,7 @@ const calculations = {
         hide: true,
 
         calculate(values) {
-            return values.monsterMaxHp / values.playerAverageDamagePerHit;
+            return values.monsterModifiedMaxHp / values.playerAverageDamagePerHit;
         },
     },
 
@@ -176,7 +183,7 @@ const calculations = {
             for (let i = 0; i < sims; i++) {
                 let hits = 0;
 
-                let monsterHp = values.monsterMaxHp;
+                let monsterHp = values.monsterModifiedMaxHp;
                 while (monsterHp > 0) {
                     const hit = randInt(
                         values.playerModifiedDamage.min,
@@ -212,7 +219,8 @@ const calculations = {
     },
 
     xpHz(values) {
-        return values.monsterMaxHp * 0.4 / values.averageTimeToKillAndRespawn;
+        return values.monsterModifiedMaxHp * 0.4 / values.averageTimeToKillAndRespawn /
+            values.gameMode.hpMultiplier;
     },
 
     killHz: {
@@ -246,7 +254,9 @@ const calculations = {
         hide: true,
 
         calculate(values) {
-            return Math.floor(values.monsterMaxHp / 10);
+            const hp = values.monsterModifiedMaxHp / values.gameMode.hpMultiplier;
+
+            return Math.floor(hp / 10);
         },
     },
 
@@ -262,8 +272,10 @@ const calculations = {
         hide: true,
 
         calculate(values) {
+            const hp = values.monsterModifiedMaxHp / values.gameMode.hpMultiplier;
+
             if (values.monster && values.monster.alwaysGivesSlayerXp)
-                return Math.floor(values.monsterMaxHp / 20);
+                return Math.floor(hp / 20);
             return 0;
         },
     },

@@ -23,14 +23,14 @@ const INPUTS = {
 
             minDamage: {
                 label: 'Min',
-                class: 'two-digit',
+                class: 'three-digit',
                 value: 80,
                 min: 1,
             },
 
             maxDamage: {
                 label: 'Max',
-                class: 'three-digit',
+                class: 'four-digit',
                 value: 402,
                 min: 1,
             },
@@ -65,7 +65,7 @@ const INPUTS = {
 
         autoEat: {
             label: 'Auto Eat 🦀',
-            class: 'three-digit',
+            class: 'four-digit',
             value: 216,
             min: 0,
         },
