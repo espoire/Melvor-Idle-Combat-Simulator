@@ -295,7 +295,7 @@ const calculations = {
             const noDropChance = 1 - values.dropChance;
             const killsToHalfChance = Math.log(0.5) / Math.log(noDropChance);
 
-            return killsToHalfChance / values.killsPerHour;
+            return Math.max(1, killsToHalfChance) / values.killsPerHour;
         },
     },
 };
