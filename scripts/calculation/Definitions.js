@@ -1,13 +1,14 @@
 import { average } from '../util/Array.js';
 import { randInt } from '../util/Random.js';
-import { capitalize, formatPercent, formatProbability, formatTime } from '../util/String.js';
+import { capitalize } from '../util/String.js';
 import COMBAT_TRIANGLE from './Combat Triangle.js';
+import format from '../util/Format.js';
 
 const BASE_SIMULATION_KILLS = 10000;
 
 const calculations = {
     playerHitChance: {
-        format: formatPercent,
+        format: format.percent,
 
         calculate(values) {
             const monsterEvasion = values[`monster${capitalize(values.playerStyle)}Evasion`];
@@ -245,7 +246,7 @@ const calculations = {
 
     dropChance: {
         hide: true,
-        format: formatProbability,
+        format: format.probability,
 
         calculate(values) {
             return values.lootTableEntry.chance || 0;
@@ -287,7 +288,7 @@ const calculations = {
 
     dropEtaHours: {
         hide: true,
-        format: formatTime.bind(null, 'hour'),
+        format: format.time.bind(format, 'hour'),
 
         calculate(values) {
             if (! values.dropChance) return NaN;
