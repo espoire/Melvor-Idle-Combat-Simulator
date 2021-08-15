@@ -37,11 +37,11 @@ New Features
     Build 💎 Loot
         Fix Median Time to First Drop values shorter than kill time
         Fix / hide dungeon-only monsters and loot?
-        Sort / filter / search for items better
+        Filter / search for items better
         Add loot table to 😈 Monster
+            Make loot table item names a hyperlink to the 💎 Loot page
         Make monster names a hyperlink to the 😈 Monster page
 
     Build 🐉 Dungeons
 
     Add Adventure/Hardcore combat differences support (and setting on Player tab)
-    
