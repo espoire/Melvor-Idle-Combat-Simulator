@@ -1,15 +1,17 @@
+import { ITEMS_FROM_COMBAT, MONSTERS_BY_ITEM_NAME } from '../melvor/ItemsProcessing.js';
 import { MONSTERS } from '../melvor/Monsters.js';
 import { SLAYER_TIERS } from '../melvor/Slayer Tasks.js';
 import { setValuesForMonster, setValuesForMonsterByName } from '../ui/MonsterUI.js';
 import { getSlayerPreferenceSortFunction } from '../ui/SlayerUI.js';
 import { appendKeyValueRow, appendTableHead, appendTableRow, removeChildren } from '../util/Element.js';
-import calculations from './Calculation.js';
+import calculations from './Definitions.js';
 import { STYLE_NAME_TO_EMOJI } from './Combat Triangle.js';
 
 const SETTINGS = {
     combatStatsId: 'monster-combat-stats-output',
     bestXpTableId: 'best-xp-table',
     slayerTableId: 'slayer-table',
+    lootTableId: 'loot-table',
 };
 
 export function recalculateCombatStats() {
@@ -25,6 +27,11 @@ export function recalculateBestXpTable() {
 export function recalculateSlayerTable() {
     const slayerTableEl = document.getElementById(SETTINGS.slayerTableId);
     renderSlayerTableTo(slayerTableEl);
+}
+
+export function recalculateLootTable() {
+    const lootTableEl = document.getElementById(SETTINGS.lootTableId);
+    renderLootTableTo(lootTableEl);
 }
 
 /**
@@ -50,13 +57,13 @@ export function renderBestXpTableTo(el) {
     removeChildren(el);
     appendTableHead(
         el,
-        'Xp Hz',
+        `${format(getFormValues()).playerStyle}👑`,
         'Monster',
         'Level',
         'Style',
         'Area',
-        'Slayer',
-        'Auto-Eat',
+        '💀',
+        '🦀',
     );
     for (const monsterInfo of ranking) {
         if (monsterInfo.rank >= 20) break;
@@ -79,27 +86,65 @@ export function renderBestXpTableTo(el) {
  * @param {!HTMLElement} el
  */
 export function renderSlayerTableTo(el) {
-    const formatted = format(getFormValues());
     const ranking = rankSlayerMonsters();
 
     removeChildren(el);
     appendTableHead(
         el,
         '💀🟢',
-        '💀 XP',
-        `${formatted.playerStyle} XP`,
+        '💀👑',
+        `${format(getFormValues()).playerStyle}👑`,
         'Monster',
         'Level',
         'Style',
         'Area',
-        'Slayer',
-        'Auto-Eat',
+        '💀',
+        '🦀',
     );
     for (const monsterInfo of ranking) {
         appendTableRow(
             el,
             monsterInfo.formattedValues.slayerCoinHz,
             monsterInfo.formattedValues.slayerXpHz,
+            monsterInfo.formattedValues.xpHz,
+            monsterInfo.monster.name,
+            monsterInfo.monster.combatLevel,
+            STYLE_NAME_TO_EMOJI[monsterInfo.monster.style],
+            monsterInfo.monster.location.name,
+            monsterInfo.monster.slayerLevel || '--',
+            monsterInfo.formattedValues.autoEat,
+        );
+    }
+}
+
+/**
+ * @param {!HTMLElement} el
+ */
+export function renderLootTableTo(el) {
+    const ranking = rankLootMonsters();
+
+    removeChildren(el);
+    appendTableHead(
+        el,
+        'Drop<br />Chance',
+        'Amount',
+        'Items<br />/ Hour',
+        'Median Time<br />for First Drop',
+        `${format(getFormValues()).playerStyle} XP`,
+        'Monster',
+        'Level',
+        'Style',
+        'Area',
+        '💀',
+        '🦀',
+    );
+    for (const monsterInfo of ranking) {
+        appendTableRow(
+            el,
+            monsterInfo.formattedValues.dropChance,
+            monsterInfo.formattedValues.dropAmount,
+            monsterInfo.formattedValues.dropsPerHour,
+            monsterInfo.formattedValues.dropEtaHours,
             monsterInfo.formattedValues.xpHz,
             monsterInfo.monster.name,
             monsterInfo.monster.combatLevel,
@@ -185,6 +230,36 @@ function decorateSlayerRankingWithAggregateValues(ranking) {
     //      Add reroll/extend recommendation to table.
 }
 
+function rankLootMonsters() {
+    const values = getFormValues();
+
+    if (!values.item) return [];
+
+    const monsters = MONSTERS_BY_ITEM_NAME[values.item.name];
+
+    const ranking = [];
+    for (const monster of monsters) {
+        const values = doCalculationsFor(monster);
+        const formatted = format(values);
+
+        ranking.push({
+            monster,
+            values,
+            formattedValues: formatted,
+        });
+    }
+
+    // Sort descending by `dropsPerHour`
+    ranking.sort(
+        (a, b) => b.values.dropsPerHour - a.values.dropsPerHour,
+    );
+
+    for (let i = 0; i < ranking.length; i++)
+        ranking[i].rank = i;
+
+    return ranking;
+}
+
 function doCalculationsFor(monster, simulationFidelity) {
     const values = getFormValues();
     setValuesForMonster(values, monster);
@@ -219,6 +294,10 @@ function getFormValues() {
     const monsterName = monsterSelectEl.value;
     setValuesForMonsterByName(ret, monsterName);
 
+    ret.item = ITEMS_FROM_COMBAT.find(
+        item => item.name == ret['loot-select']
+    );
+
     return ret;
 }
 
@@ -226,34 +305,30 @@ function format(values) {
     const ret = {};
 
     for (const key in values) {
-        let value = values[key];
+        const value = values[key];
         const calculation = calculations[key];
 
-        if (typeof value == 'number')
-            value = value.toFixed(1);
-
-        if (typeof calculation != 'object' || !calculation.format) {
-            if (key.endsWith('Style')) {
-                switch (value) {
-                    case 'melee':
-                        value = '⚔';
-                        break;
-                    case 'ranged':
-                        value = '🏹';
-                        break;
-                    case 'magic':
-                        value = '🧙‍♂️';
-                        break;
-                    default:
-                        throw new Error(`Unknown style: ${value}`);
-                }
+        if (calculation && calculation.format) {
+            ret[key] = calculation.format(value);
+        } else if (typeof value == 'number') {
+            ret[key] = value.toFixed(1);
+        } else if (key.endsWith('Style')) {
+            switch (value) {
+                case 'melee':
+                    ret[key] = '🗡';
+                    break;
+                case 'ranged':
+                    ret[key] = '🏹';
+                    break;
+                case 'magic':
+                    ret[key] = '🧙‍♂️';
+                    break;
+                default:
+                    throw new Error(`Unknown style: ${value}`);
             }
-
+        } else {
             ret[key] = value;
-            continue;
         }
-
-        ret[key] = calculation.format(value);
     }
 
     return ret;

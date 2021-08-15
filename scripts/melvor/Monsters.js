@@ -1,5 +1,7 @@
+import { sum } from '../util/Array.js';
 import { decorateMonsterConfigWithLocationInfo } from './Combat Areas.js';
 import SPELLS from './Spells.js';
+import { ITEMS } from './Items.js';
 
 let MONSTERS = [
     {
@@ -6870,6 +6872,34 @@ class Monster {
         this.canBeAssignedAsSlayerTask = config.canSlayer;
         this.slayerLevel = config.slayerLevel;
         this.includeInSearch = !(config.isBoss || config.isDungeonOnly);
+
+        if (config.lootTable) {
+            const totalRate = sum(
+                config.lootTable.map(
+                    entry => entry[1]
+                )
+            );
+
+            const lootChance = config.lootChance || 100;
+
+            this.loot = config.lootTable.map(
+                entry => {
+                    const [itemId, rate, maxStack] = entry;
+
+                    return {
+                        item: ITEMS[itemId],
+                        chance: rate / totalRate * (lootChance / 100),
+                        maxStack,
+                    };
+                }
+            );
+
+            this.loot.sort(
+                (a, b) => b.chance - a.chance
+            );
+        } else {
+            this.loot = [];
+        }
     }
 
     toString() {

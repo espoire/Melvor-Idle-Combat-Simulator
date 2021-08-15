@@ -5,7 +5,7 @@ const INPUTS = {
         type: 'optionset',
         class: 'center-options large-icons',
         options: [
-            { value: 'melee', display: '⚔' },
+            { value: 'melee', display: '🗡' },
             { value: 'ranged', display: '🏹' },
             { value: 'magic', display: '🧙‍♂️' },
         ],

@@ -1,3 +1,11 @@
+Code Quality
+
+    Redo the 📈 Combat Stats display;
+        control visibility of each key from MonsterUI or similar,
+        NOT the Definitions.calculations array.
+
+
+
 Formatting / Usability
 
     Instructions/explanation for each page, each wrapper
@@ -27,5 +35,9 @@ New Features
     Add special attack handling to 🦀 Auto-Eat calculations
 
     Build 💎 Loot
+        Fix / hide dungeon-only monsters and loot?
+        Sort / filter / search for items better
+        Add loot table to 😈 Monster
+        Make monster names a hyperlink to the 😈 Monster page
 
     Build 🐉 Dungeons

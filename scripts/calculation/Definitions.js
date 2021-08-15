@@ -1,15 +1,13 @@
 import { average } from '../util/Array.js';
 import { randInt } from '../util/Random.js';
-import { capitalize } from '../util/String.js';
+import { capitalize, formatPercent, formatProbability, formatTime } from '../util/String.js';
 import COMBAT_TRIANGLE from './Combat Triangle.js';
 
 const BASE_SIMULATION_KILLS = 10000;
 
 const calculations = {
     playerHitChance: {
-        format(value) {
-            return `${value} %`;
-        },
+        format: formatPercent,
 
         calculate(values) {
             const monsterEvasion = values[`monster${capitalize(values.playerStyle)}Evasion`];
@@ -182,8 +180,8 @@ const calculations = {
 
     autoEat: {
         format(value) {
-            if (value) return '🦀👍';
-            return '💀👎';
+            if (value) return '🦀';
+            return '💀';
         },
 
         calculate(values) {
@@ -230,6 +228,74 @@ const calculations = {
 
         calculate(values) {
             return values.slayerXpIfTask * values.killHz;
+        },
+    },
+
+    lootTableEntry: {
+        hide: true,
+
+        calculate(values) {
+            if (! values.item || ! values.monster) return {};
+
+            return values.monster.loot.find(
+                loot => loot.item == values.item
+            ) || {};
+        },
+    },
+
+    dropChance: {
+        hide: true,
+        format: formatProbability,
+
+        calculate(values) {
+            return values.lootTableEntry.chance || 0;
+        },
+    },
+
+    dropAmount: {
+        hide: true,
+
+        format(value) {
+            if (! value) return '--';
+
+            value = Number(value);
+
+            if (value == 1) return '1';
+            return `1 - ${value.toFixed(0)}`;
+        },
+
+        calculate(values) {
+            return values.lootTableEntry.maxStack || 0;
+        },
+    },
+
+    dropsPerKill: {
+        hide: true,
+
+        calculate(values) {
+            return values.dropAmount * values.dropChance;
+        },
+    },
+
+    dropsPerHour: {
+        hide: true,
+
+        calculate(values) {
+            return values.dropsPerKill * values.killsPerHour;
+        },
+    },
+
+    dropEtaHours: {
+        hide: true,
+        format: formatTime.bind(null, 'hour'),
+
+        calculate(values) {
+            if (! values.dropChance) return NaN;
+
+            const noDropChance = 1 - values.dropChance;
+            const killsToHalfChance = Math.log(0.5) / Math.log(noDropChance);
+
+            return killsToHalfChance / values.killsPerHour;
         },
     },
 };

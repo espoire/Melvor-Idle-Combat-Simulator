@@ -14,7 +14,7 @@ const INPUTS = {
         options: [
             { value: 'coins', display: '💀🟢' },
             { value: 'slayerxp', display: '💀 XP' },
-            { value: 'totalxp', display: '💀⚔🏹🧙‍♂️ XP' },
+            { value: 'totalxp', display: '💀🗡🏹🧙‍♂️ XP' },
         ],
         value: 'coins',
         onChange: 'recalculateSlayerTable',
@@ -24,7 +24,7 @@ const INPUTS = {
 /**
  * @param {!HTMLElement} el
  */
-export function appendOptionsInputs(el) {
+export function appendSlayerInputs(el) {
     for (const key in INPUTS) {
         const config = INPUTS[key];
         config.name = key;

@@ -6,6 +6,19 @@
 
 		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 		<link rel="stylesheet" href="styles/bin/main.css" />
+		<script>
+			window.expose = function expose(key, value) {
+				if (value === undefined) {
+					value = key;
+					key = 'exposed';
+				}
+
+				console.log(`Exposing to global scope: window.${key} =`);
+				console.log(value);
+
+				window[key] = value;
+			}
+		</script>
 		<script type="module" src="Main.js"></script>
 	</head>
 
@@ -49,14 +62,6 @@
 
 						<div id="monster-combat-stats-output"></div></div>
 					</div>
-					
-					<div id="loot-tab">
-						<div class="wrapper"><label class="section">💎 Loot</label>
-
-							🚧 Under Construction
-							⏳ Coming Soon
-						</div>
-					</div>
 				
 					<div id="best-xp-tab">
 						<div class="wrapper"><label class="section">👑 Best Monsters for XP</label>
@@ -66,20 +71,35 @@
 					</div>
 					
 					<div id="slayer-tab">
-						<div id="options-wrapper" class="wrapper"><label class="section">💀⚙ Slayer Options</label>
+						<div id="slayer-options-wrapper" class="wrapper"><label class="section">💀⚙ Slayer Options</label>
 
-						<div id="options"></div></div>
+						<div id="slayer-options"></div></div>
 						
 						<div class="wrapper"><label class="section">💀😈 Slayer Monsters Ranking</label>
 							Based on <b class="code">🙂 Player </b> Stats
 
 						<table id="slayer-table"></table></div>
 					</div>
+					
+					<div id="loot-tab">
+						<div class="wrapper">🚧 Under Construction
+						
+						This feature is still in development.
+						Some of the data for dungeon-only items is incorrect.</div>
+
+						<div id="loot-options-wrapper" class="wrapper"><label class="section">💎 Loot</label>
+
+						<select id="loot-select" value="Diamond" onchange="recalculateLootTable();"></select></div>
+
+						<div class="wrapper"><label class="section">💎 Loot Sources</label>
+							Based on <b class="code">🙂 Player </b> Stats
+
+						<table id="loot-table"></table></div>
+					</div>
 
 					<div id="dungeons-tab">
 						<div class="wrapper"><label class="section">🐉 Dungeons</label>
 							
-							🚧 Under Construction
 							⏳ Coming Soon
 						</div>
 					</div>

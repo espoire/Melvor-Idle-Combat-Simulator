@@ -3,8 +3,11 @@ import { appendOption } from '../util/Element.js';
 
 export default function appendMonsterOptions(el) {
     appendOption(el);
+
     for (const monster of MONSTERS)
         appendMonsterOption(el, monster);
+
+    el.value = 'Cow';
 }
 
 function appendMonsterOption(el, monster) {
@@ -16,7 +19,6 @@ function appendMonsterOption(el, monster) {
     }
 
     el.appendChild(optionEl);
-    el.value = 'Cow';
 }
 
 export function setValuesForMonsterByName(values, monsterName) {
