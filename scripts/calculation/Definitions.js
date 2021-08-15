@@ -334,7 +334,7 @@ const calculations = {
         hide: true,
 
         calculate(values) {
-            return values.dropAmount * values.dropChance;
+            return (1 + values.dropAmount) / 2 * values.dropChance;
         },
     },
 
