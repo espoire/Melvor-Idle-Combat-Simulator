@@ -35,7 +35,6 @@ New Features
     Add special attack handling to 🦀 Auto-Eat calculations
 
     Build 💎 Loot
-        Fix Median Time to First Drop values shorter than kill time
         Fix / hide dungeon-only monsters and loot?
         Filter / search for items better
         Add loot table to 😈 Monster
