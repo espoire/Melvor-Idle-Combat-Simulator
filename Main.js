@@ -41,6 +41,7 @@ function onAfterLoad() {
             }, {
                 label: '💎 🚧<br />Loot',
                 element: 'loot-tab',
+                onShow: recalculateLootTable,
             }, {
                 label: '🐉 ⏳<br />Dungeons',
                 element: 'dungeons-tab',
