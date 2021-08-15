@@ -42,3 +42,6 @@ New Features
         Make monster names a hyperlink to the 😈 Monster page
 
     Build 🐉 Dungeons
+
+    Add Adventure/Hardcore combat differences support (and setting on Player tab)
+    
