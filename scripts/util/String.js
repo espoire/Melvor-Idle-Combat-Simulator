@@ -65,3 +65,9 @@ export function formatTime(inputUnits, time) {
         return `${units.toPrecision(2)} ${unit}s`;
     }
 }
+
+export function nullSafeToString(o) {
+    if (!o || typeof o.toString != 'function')
+        return '';
+    return o.toString();
+}

@@ -1,4 +1,4 @@
-import { unique } from '../util/Array.js';
+import { sort, unique } from '../util/Array.js';
 import { MONSTERS } from './Monsters.js';
 
 const ITEMS_FROM_COMBAT = buildItemsFromCombatArray();
@@ -12,7 +12,7 @@ function buildItemsFromCombatArray() {
             ret.push(loot.item);
 
     ret = unique(ret);
-    ret.sort((a, b) => a.id - b.id);
+    ret.sort((a, b) => sort.alphabetize(a.name, b.name));
 
     return ret;
 }
