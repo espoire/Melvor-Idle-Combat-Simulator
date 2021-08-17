@@ -41,10 +41,13 @@ export function renderMonsterCombatStatsTo(el) {
     const values = doCalculations();
     const formatted = format(values);
 
-    removeChildren(el);
+    const divEl = document.createElement('div');
     for (const key in calculations)
         if (! calculations[key].hide)
-            appendKeyValueRow(el, key, formatted[key]);
+            appendKeyValueRow(divEl, key, formatted[key]);
+
+    removeChildren(el);
+    el.appendChild(divEl);
 }
 
 /**
@@ -54,9 +57,10 @@ export function renderBestXpTableTo(el) {
     const ranking = rankBestMonstersForXp();
     const bestXpHz = ranking[0].values.xpHz;
 
-    removeChildren(el);
+    const tableEl = document.createElement('table');
+
     appendTableHead(
-        el,
+        tableEl,
         `${format(getFormValues()).playerStyle}👑`,
         'Monster',
         'Level',
@@ -70,7 +74,7 @@ export function renderBestXpTableTo(el) {
         if (monsterInfo.values.xpHz < 0.75 * bestXpHz) break;
 
         appendTableRow(
-            el,
+            tableEl,
             monsterInfo.formattedValues.xpHz,
             monsterInfo.monster.name,
             monsterInfo.monster.combatLevel,
@@ -80,6 +84,9 @@ export function renderBestXpTableTo(el) {
             monsterInfo.formattedValues.autoEat,
         );
     }
+
+    removeChildren(el);
+    el.appendChild(tableEl);
 }
 
 /**
@@ -88,9 +95,9 @@ export function renderBestXpTableTo(el) {
 export function renderSlayerTableTo(el) {
     const ranking = rankSlayerMonsters();
 
-    removeChildren(el);
+    const tableEl = document.createElement('table');
     appendTableHead(
-        el,
+        tableEl,
         '💀🟢',
         '💀👑',
         `${format(getFormValues()).playerStyle}👑`,
@@ -103,7 +110,7 @@ export function renderSlayerTableTo(el) {
     );
     for (const monsterInfo of ranking) {
         appendTableRow(
-            el,
+            tableEl,
             monsterInfo.formattedValues.slayerCoinHz,
             monsterInfo.formattedValues.slayerXpHz,
             monsterInfo.formattedValues.xpHz,
@@ -115,6 +122,9 @@ export function renderSlayerTableTo(el) {
             monsterInfo.formattedValues.autoEat,
         );
     }
+
+    removeChildren(el);
+    el.appendChild(tableEl);
 }
 
 /**
@@ -123,13 +133,13 @@ export function renderSlayerTableTo(el) {
 export function renderLootTableTo(el) {
     const ranking = rankLootMonsters();
 
-    removeChildren(el);
+    const tableEl = document.createElement('table');
     appendTableHead(
-        el,
-        'Drop<br />Chance',
+        tableEl,
+        'Drop Chance',
         'Amount',
-        'Items<br />/ Hour',
-        'Median Time<br />for First Drop',
+        'Items / Hour',
+        'Median Time for First Drop',
         `${format(getFormValues()).playerStyle} XP`,
         'Monster',
         'Level',
@@ -140,7 +150,7 @@ export function renderLootTableTo(el) {
     );
     for (const monsterInfo of ranking) {
         appendTableRow(
-            el,
+            tableEl,
             monsterInfo.formattedValues.dropChance,
             monsterInfo.formattedValues.dropAmount,
             monsterInfo.formattedValues.dropsPerHour,
@@ -154,6 +164,9 @@ export function renderLootTableTo(el) {
             monsterInfo.formattedValues.autoEat,
         );
     }
+
+    removeChildren(el);
+    el.appendChild(tableEl);
 }
 
 function doCalculations() {

@@ -5,7 +5,7 @@ export function appendInput(el, prefix, config) {
     elementWrapper.className = 'vbox ui-auto-input center-content';
 
     const labelElement = document.createElement('label');
-    labelElement.innerHTML = config.label || camelCaseToTitleCase(config.name);
+    labelElement.textContent = config.label || camelCaseToTitleCase(config.name);
     if (config.labelClass) labelElement.className = config.labelClass;
     elementWrapper.appendChild(labelElement);
 
@@ -50,7 +50,7 @@ export function appendInput(el, prefix, config) {
                 const optionElement = document.createElement('option');
 
                 optionElement.value = value;
-                optionElement.innerHTML = display;
+                optionElement.textContent = display;
 
                 if (config.value == value) optionElement.selected = true;
 
@@ -85,7 +85,7 @@ export function appendInput(el, prefix, config) {
                 inputWrapper.appendChild(inputElement);
 
                 const bElement = document.createElement('b');
-                bElement.innerHTML = '%';
+                bElement.textContent = '%';
                 bElement.className = 'percent-input-postfix';
                 inputWrapper.appendChild(bElement);
 

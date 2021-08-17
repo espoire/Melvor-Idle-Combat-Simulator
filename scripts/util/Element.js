@@ -55,7 +55,7 @@ export function appendKeyValueRow(el, key, value) {
 function appendKeyValueRowLabel(rowEl, key) {
     const labelElement = document.createElement('label');
 
-    labelElement.innerHTML = camelCaseToTitleCase(key);
+    labelElement.textContent = camelCaseToTitleCase(key);
 
     rowEl.appendChild(labelElement);
 }
@@ -71,7 +71,7 @@ function appendKeyValueRowValue(rowEl, value) {
     let text = value;
     if (typeof value == 'number')
         text = value.toFixed(1);
-    valueElement.innerHTML = text;
+    valueElement.textContent = text;
 
     rowEl.appendChild(valueElement);
 }
@@ -85,7 +85,7 @@ export function appendTableHead(el, ...headers) {
 
     for (const header of headers) {
         const thElement = document.createElement('th');
-        thElement.innerHTML = header;
+        thElement.textContent = header;
 
         trElement.appendChild(thElement);
     }
@@ -102,7 +102,7 @@ export function appendTableRow(el, ...data) {
 
     for (const datum of data) {
         const tdElement = document.createElement('td');
-        tdElement.innerHTML = datum;
+        tdElement.textContent = datum;
 
         trElement.appendChild(tdElement);
     }

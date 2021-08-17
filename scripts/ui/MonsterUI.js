@@ -15,7 +15,7 @@ function appendMonsterOption(el, monster) {
 
     if (monster) {
         optionEl.value = monster.name;
-        optionEl.innerHTML = monster.toString();
+        optionEl.textContent = monster.toString();
     }
 
     el.appendChild(optionEl);

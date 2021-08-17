@@ -75,18 +75,20 @@ export default class TabPanel {
         this.parent.appendChild(tabPanelWrapperDivElement);
     }
 
-    activateTab(tab) {
-        if (typeof tab == 'number')
-            tab = this.tabs[tab];
+    activateTab(newActiveTab) {
+        if (typeof newActiveTab == 'number')
+            newActiveTab = this.tabs[newActiveTab];
 
         this.tabs.forEach(tab => {
-            tab.element.style.display = 'none';
-            if (tab.button) tab.button.className = 'tab-button';
+            if (tab != newActiveTab) {
+                tab.element.style.display = 'none';
+                if (tab.button) tab.button.classList.remove('active');
+            }
         });
 
-        tab.element.style.display = 'inline-block';
-        if (tab.button) tab.button.className = 'tab-button active';
-        if (tab.onShow) tab.onShow();
+        newActiveTab.element.style.display = 'inline-block';
+        if (newActiveTab.button) newActiveTab.button.classList.add('active');
+        if (newActiveTab.onShow) newActiveTab.onShow();
     }
 
     static _validateConfig(config) {

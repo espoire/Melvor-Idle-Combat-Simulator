@@ -24,6 +24,8 @@ Formatting / Usability
 
 Bug Fixes
 
+    Sim performance issue? Particularly for the Slayer table?
+
     Update combat calculations to match Melvor Idle v0.21 (Offline Combat Update)
 
 

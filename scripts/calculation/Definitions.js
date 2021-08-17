@@ -1,11 +1,10 @@
-import { average } from '../util/Array.js';
-import { randInt } from '../util/Random.js';
+import fastRandom from '../util/FastRandom.js';
 import { capitalize } from '../util/String.js';
 import COMBAT_TRIANGLE from './Combat Triangle.js';
 import format from '../util/Format.js';
 import { GAME_MODES } from '../ui/GameModeUI.js';
 
-const BASE_SIMULATION_KILLS = 10000;
+const BASE_SIMULATION_KILLS = 2000;
 
 const calculations = {
     gameMode: {
@@ -172,33 +171,51 @@ const calculations = {
         },
     },
 
+    hueristicHitsToKill: {
+        hide: true,
+
+        calculate(values) {
+            return values.naiveHitsToKill + 0.65;
+
+            // "Experimental" measured deltas:
+            // 0.6667 if min/max ~= 0,
+            // 0.5    if min/max ~= 1.
+            // Unclear how it scales in between.
+
+            // We will use 0.65, since min is usually MUCH smaller than max.
+            // This yields values that are 2-3% wrong in the worst case, for low level mages.
+        },
+    },
+
     simulatedAverageHitsToKill: {
         hide: true,
 
         calculate(values) {
-            const simResults = [];
+            // Error is asymptotically small if monster
+            // HP is large relative to player DPS.
+            if (values.hueristicHitsToKill >= 5)
+                return values.hueristicHitsToKill;
+
+            const min = values.playerModifiedDamage.min;
+            const max = values.playerModifiedDamage.max;
+            const range = (max - min + 1);
 
             const sims = BASE_SIMULATION_KILLS * (values.simulationFidelity || 1);
+            let totalHits = 0;
 
             for (let i = 0; i < sims; i++) {
                 let hits = 0;
 
                 let monsterHp = values.monsterModifiedMaxHp;
-                while (monsterHp > 0) {
-                    const hit = randInt(
-                        values.playerModifiedDamage.min,
-                        values.playerModifiedDamage.max
-                    );
-                    monsterHp -= hit;
+                while (monsterHp > 0 && hits < 10) {
+                    monsterHp -= Math.floor(fastRandom() * range + min);
                     hits++;
-
-                    if (hits > 100) return 100;
                 }
 
-                simResults.push(hits);
+                totalHits += hits;
             }
 
-            return average(simResults);
+            return totalHits / sims;
         },
     },
 

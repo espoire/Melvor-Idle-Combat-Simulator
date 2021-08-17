@@ -6,7 +6,10 @@ export function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-export function randomFromArray(array) {
-    const roll = randInt(0, array.length - 1);
-    return array[roll];
+export function randomArrayIndex(array) {
+    return randInt(0, array.length - 1);
+}
+
+export function randomElementFromArray(array) {
+    return array[randomArrayIndex(array)];
 }
