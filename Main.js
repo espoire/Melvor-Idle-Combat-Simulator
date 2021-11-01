@@ -5,6 +5,7 @@ import { appendPlayerInputs } from './scripts/ui/PlayerUI.js';
 import { displayGameModeInfo } from './scripts/ui/GameModeUI.js';
 import appendItemOptions from './scripts/ui/LootUI.js';
 import TabPanel from './scripts/ui/widgets/TabPanel.js';
+import Cookie from './scripts/util/Cookie.js';
 
 window.recalculateCombatStats = recalculateCombatStats;
 window.recalculateSlayerTable = recalculateSlayerTable;
@@ -50,4 +51,6 @@ function onAfterLoad() {
             },
         ],
     });
+
+    console.log('cookie', Cookie.jar);
 }

@@ -1,3 +1,4 @@
+import Cookie from '../util/Cookie.js';
 import { camelCaseToTitleCase, capitalize } from '../util/String.js';
 
 export function appendInput(el, prefix, config) {
@@ -38,6 +39,10 @@ export function appendInput(el, prefix, config) {
             selectElement.id = id;
             if (config.class) selectElement.className = config.class;
 
+            let targetValue = null;
+            if (config.value) targetValue = config.value;
+            if (config.cookie) targetValue = Cookie.jar[id] || targetValue;
+
             for (const option of config.options) {
                 let value, display;
                 if (typeof option == 'string') {
@@ -52,13 +57,20 @@ export function appendInput(el, prefix, config) {
                 optionElement.value = value;
                 optionElement.textContent = display;
 
-                if (config.value == value) optionElement.selected = true;
+                if (targetValue == value) optionElement.selected = true;
 
                 selectElement.appendChild(optionElement);
             }
 
-            if (config.onChange) selectElement.onchange = function () {
-                window[config.onChange]();
+            const onChange = [];
+            if (config.onChange) onChange.push(window[config.onChange]);
+            if (config.cookie) onChange.push(function (event) {
+                Cookie.bake(id, event.target.value);
+            });
+
+            selectElement.onchange = function () {
+                const event = arguments[0]; // eslint-disable-line prefer-rest-params -- Event info not accessible via parameters.
+                for (const subfunction of onChange) subfunction(event);
             };
 
             elementWrapper.appendChild(selectElement);
@@ -71,11 +83,20 @@ export function appendInput(el, prefix, config) {
             inputElement.id = id;
             if (config.class) inputElement.className = config.class;
             if (config.value) inputElement.value = config.value;
+            if (config.cookie) inputElement.value = Cookie.jar[id] || inputElement.value;
             if (config.min) inputElement.min = config.min;
             if (config.max) inputElement.max = config.max;
             if (config.step) inputElement.step = config.step;
-            if (config.onChange) inputElement.onchange = function () {
-                window[config.onChange]();
+
+            const onChange = [];
+            if (config.onChange) onChange.push(window[config.onChange]);
+            if (config.cookie) onChange.push(function (event) {
+                Cookie.bake(id, event.target.value);
+            });
+
+            inputElement.onchange = function () {
+                const event = arguments[0]; // eslint-disable-line prefer-rest-params -- Event info not accessible via parameters.
+                for (const subfunction of onChange) subfunction(event);
             };
 
             if (config.type == 'percent') {

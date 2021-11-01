@@ -1,3 +1,5 @@
+import Cookie from '../util/Cookie.js';
+
 export const GAME_MODES = {
     normal: 'normal',
     adventure: 'adventure',
@@ -12,6 +14,8 @@ const IDS = {
 export function displayGameModeInfo() {
     const gameModeSelectEl = document.getElementById(IDS.select);
     const selectedGameMode = gameModeSelectEl.value;
+
+    Cookie.bake('gameMode', selectedGameMode);
 
     for (const mode in GAME_MODES) {
         const descriptionEl = document.getElementById(

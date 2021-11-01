@@ -1,4 +1,9 @@
+In progress:
+    Finish save to cookie: Game Mode does not yet save.
+
 Code Quality
+
+    Clean up UI.js
 
     Redo the 📈 Combat Stats display;
         control visibility of each key from MonsterUI or similar,
@@ -23,8 +28,6 @@ Formatting / Usability
 
 
 Bug Fixes
-
-    Sim performance issue? Particularly for the Slayer table?
 
     Update combat calculations to match Melvor Idle v0.21 (Offline Combat Update)
 

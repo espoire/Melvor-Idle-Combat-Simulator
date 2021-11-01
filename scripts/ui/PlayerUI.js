@@ -10,6 +10,7 @@ const INPUTS = {
             { value: 'magic', display: '🧙‍♂️' },
         ],
         value: 'magic',
+        cookie: true,
     },
 
     offenses: {
@@ -25,6 +26,7 @@ const INPUTS = {
                 label: 'Min',
                 class: 'three-digit',
                 value: 80,
+                cookie: true,
                 min: 1,
             },
 
@@ -32,6 +34,7 @@ const INPUTS = {
                 label: 'Max',
                 class: 'four-digit',
                 value: 402,
+                cookie: true,
                 min: 1,
             },
         },
@@ -39,6 +42,7 @@ const INPUTS = {
         speed: {
             class: 'three-digit',
             value: 2.6,
+            cookie: true,
             min: 0.1,
             step: 0.1,
         },
@@ -46,6 +50,7 @@ const INPUTS = {
         accuracy: {
             class: 'six-digit',
             value: 17325,
+            cookie: true,
             min: 1,
         },
     },
@@ -58,7 +63,8 @@ const INPUTS = {
         damageReduction: {
             type: 'percent',
             class: 'three-digit',
-            value: '20',
+            value: 20,
+            cookie: true,
             min: 0,
             max: 100,
         },
@@ -67,6 +73,7 @@ const INPUTS = {
             label: 'Auto Eat 🦀',
             class: 'four-digit',
             value: 216,
+            cookie: true,
             min: 0,
         },
     },
