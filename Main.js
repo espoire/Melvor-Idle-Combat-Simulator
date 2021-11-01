@@ -48,6 +48,9 @@ function onAfterLoad() {
             }, {
                 label: '🐉 ⏳<br />Dungeons',
                 element: 'dungeons-tab',
+            }, {
+                label: '🍪<br />Cookie Policy',
+                element: 'cookies-tab',
             },
         ],
     });
